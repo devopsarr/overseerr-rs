@@ -52,6 +52,7 @@ Method | HTTP request | Description
 [**list_discover**](SettingsApi.md#list_discover) | **GET** /settings/discover | Get all discover sliders
 [**list_jobs**](SettingsApi.md#list_jobs) | **GET** /settings/jobs | Get scheduled jobs
 [**list_logs**](SettingsApi.md#list_logs) | **GET** /settings/logs | Returns logs
+[**list_notifications_pushover_sounds**](SettingsApi.md#list_notifications_pushover_sounds) | **GET** /settings/notifications/pushover/sounds | Get Pushover sounds
 [**list_plex_devices_servers**](SettingsApi.md#list_plex_devices_servers) | **GET** /settings/plex/devices/servers | Gets the user's available Plex servers
 [**list_plex_library**](SettingsApi.md#list_plex_library) | **GET** /settings/plex/library | Get Plex libraries
 [**list_plex_users**](SettingsApi.md#list_plex_users) | **GET** /settings/plex/users | Get Plex users
@@ -1441,6 +1442,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**Vec<models::ListLogs2XxResponseInner>**](ListLogs_2XX_response_inner.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [cookieAuth](../README.md#cookieAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_notifications_pushover_sounds
+
+> Vec<models::ListNotificationsPushoverSounds2XxResponseInner> list_notifications_pushover_sounds(token)
+Get Pushover sounds
+
+Returns valid Pushover sound options in a JSON array.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**token** | **String** |  | [required] |
+
+### Return type
+
+[**Vec<models::ListNotificationsPushoverSounds2XxResponseInner>**](ListNotificationsPushoverSounds_2XX_response_inner.md)
 
 ### Authorization
 
