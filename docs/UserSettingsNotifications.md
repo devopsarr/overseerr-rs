@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **pushbullet_access_token** | Option<**String**> |  | [optional]
 **pushover_application_token** | Option<**String**> |  | [optional]
 **pushover_user_key** | Option<**String**> |  | [optional]
+**pushover_sound** | Option<**String**> |  | [optional]
 **telegram_enabled** | Option<**bool**> |  | [optional]
 **telegram_bot_username** | Option<**String**> |  | [optional]
 **telegram_chat_id** | Option<**String**> |  | [optional]
