@@ -47,7 +47,7 @@ pub enum GetAuthMeError {
 /// Takes an `email` and a `password` to log the user in. Generates a session cookie for use in further requests.
 pub async fn create_auth_local(configuration: &configuration::Configuration, create_auth_local_request: models::CreateAuthLocalRequest) -> Result<models::User, Error<CreateAuthLocalError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_auth_local_request = create_auth_local_request;
+    let p_body_create_auth_local_request = create_auth_local_request;
 
     let uri_str = format!("{}/auth/local", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -55,7 +55,7 @@ pub async fn create_auth_local(configuration: &configuration::Configuration, cre
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
-    req_builder = req_builder.json(&p_create_auth_local_request);
+    req_builder = req_builder.json(&p_body_create_auth_local_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -128,7 +128,7 @@ pub async fn create_auth_logout(configuration: &configuration::Configuration, ) 
 /// Takes an `authToken` (Plex token) to log the user in. Generates a session cookie for use in further requests. If the user does not exist, and there are no other users, then a user will be created with full admin privileges. If a user logs in with access to the main Plex server, they will also have an account created, but without any permissions.
 pub async fn create_auth_plex(configuration: &configuration::Configuration, create_auth_plex_request: models::CreateAuthPlexRequest) -> Result<models::User, Error<CreateAuthPlexError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_auth_plex_request = create_auth_plex_request;
+    let p_body_create_auth_plex_request = create_auth_plex_request;
 
     let uri_str = format!("{}/auth/plex", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -136,7 +136,7 @@ pub async fn create_auth_plex(configuration: &configuration::Configuration, crea
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
-    req_builder = req_builder.json(&p_create_auth_plex_request);
+    req_builder = req_builder.json(&p_body_create_auth_plex_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

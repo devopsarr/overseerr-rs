@@ -26,13 +26,13 @@ pub enum GetCollectionByCollectionIdError {
 /// Returns full collection details in a JSON object.
 pub async fn get_collection_by_collection_id(configuration: &configuration::Configuration, collection_id: f64, language: Option<&str>) -> Result<models::Collection, Error<GetCollectionByCollectionIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_collection_id = collection_id;
-    let p_language = language;
+    let p_path_collection_id = collection_id;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/collection/{collectionId}", configuration.base_path, collectionId=p_collection_id);
+    let uri_str = format!("{}/collection/{collectionId}", configuration.base_path, collectionId=p_path_collection_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {

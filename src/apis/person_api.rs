@@ -33,13 +33,13 @@ pub enum GetPersonCombinedCreditsError {
 /// Returns person details based on provided personId in a JSON object.
 pub async fn get_person_by_person_id(configuration: &configuration::Configuration, person_id: f64, language: Option<&str>) -> Result<models::PersonDetails, Error<GetPersonByPersonIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_person_id = person_id;
-    let p_language = language;
+    let p_path_person_id = person_id;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/person/{personId}", configuration.base_path, personId=p_person_id);
+    let uri_str = format!("{}/person/{personId}", configuration.base_path, personId=p_path_person_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -82,13 +82,13 @@ pub async fn get_person_by_person_id(configuration: &configuration::Configuratio
 /// Returns the person's combined credits based on the provided personId in a JSON object.
 pub async fn get_person_combined_credits(configuration: &configuration::Configuration, person_id: f64, language: Option<&str>) -> Result<models::GetPersonCombinedCredits2XxResponse, Error<GetPersonCombinedCreditsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_person_id = person_id;
-    let p_language = language;
+    let p_path_person_id = person_id;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/person/{personId}/combined_credits", configuration.base_path, personId=p_person_id);
+    let uri_str = format!("{}/person/{personId}/combined_credits", configuration.base_path, personId=p_path_person_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {

@@ -194,7 +194,7 @@ pub enum UpdateUserError {
 /// Sends a reset password email to the email if the user exists
 pub async fn create_auth_reset_password(configuration: &configuration::Configuration, create_auth_reset_password_request: models::CreateAuthResetPasswordRequest) -> Result<models::CreateAuthLogout2XxResponse, Error<CreateAuthResetPasswordError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_auth_reset_password_request = create_auth_reset_password_request;
+    let p_body_create_auth_reset_password_request = create_auth_reset_password_request;
 
     let uri_str = format!("{}/auth/reset-password", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -202,7 +202,7 @@ pub async fn create_auth_reset_password(configuration: &configuration::Configura
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
-    req_builder = req_builder.json(&p_create_auth_reset_password_request);
+    req_builder = req_builder.json(&p_body_create_auth_reset_password_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -232,16 +232,16 @@ pub async fn create_auth_reset_password(configuration: &configuration::Configura
 /// Resets the password for a user if the given guid is connected to a user
 pub async fn create_auth_reset_password_by_guid(configuration: &configuration::Configuration, guid: &str, create_auth_reset_password_by_guid_request: models::CreateAuthResetPasswordByGuidRequest) -> Result<models::CreateAuthLogout2XxResponse, Error<CreateAuthResetPasswordByGuidError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_guid = guid;
-    let p_create_auth_reset_password_by_guid_request = create_auth_reset_password_by_guid_request;
+    let p_path_guid = guid;
+    let p_body_create_auth_reset_password_by_guid_request = create_auth_reset_password_by_guid_request;
 
-    let uri_str = format!("{}/auth/reset-password/{guid}", configuration.base_path, guid=crate::apis::urlencode(p_guid));
+    let uri_str = format!("{}/auth/reset-password/{guid}", configuration.base_path, guid=crate::apis::urlencode(p_path_guid));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
-    req_builder = req_builder.json(&p_create_auth_reset_password_by_guid_request);
+    req_builder = req_builder.json(&p_body_create_auth_reset_password_by_guid_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -271,7 +271,7 @@ pub async fn create_auth_reset_password_by_guid(configuration: &configuration::C
 /// Creates a new user. Requires the `MANAGE_USERS` permission. 
 pub async fn create_user(configuration: &configuration::Configuration, create_user_request: models::CreateUserRequest) -> Result<models::User, Error<CreateUserError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_user_request = create_user_request;
+    let p_body_create_user_request = create_user_request;
 
     let uri_str = format!("{}/user", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -287,7 +287,7 @@ pub async fn create_user(configuration: &configuration::Configuration, create_us
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_create_user_request);
+    req_builder = req_builder.json(&p_body_create_user_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -317,7 +317,7 @@ pub async fn create_user(configuration: &configuration::Configuration, create_us
 /// Fetches and imports users from the Plex server. If a list of Plex IDs is provided in the request body, only the specified users will be imported. Otherwise, all users will be imported.  Requires the `MANAGE_USERS` permission. 
 pub async fn create_user_import_from_plex(configuration: &configuration::Configuration, create_user_import_from_plex_request: Option<models::CreateUserImportFromPlexRequest>) -> Result<Vec<models::User>, Error<CreateUserImportFromPlexError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_user_import_from_plex_request = create_user_import_from_plex_request;
+    let p_body_create_user_import_from_plex_request = create_user_import_from_plex_request;
 
     let uri_str = format!("{}/user/import-from-plex", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -333,7 +333,7 @@ pub async fn create_user_import_from_plex(configuration: &configuration::Configu
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_create_user_import_from_plex_request);
+    req_builder = req_builder.json(&p_body_create_user_import_from_plex_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -363,7 +363,7 @@ pub async fn create_user_import_from_plex(configuration: &configuration::Configu
 /// Registers a web push subscription for the logged-in user
 pub async fn create_user_register_push_subscription(configuration: &configuration::Configuration, create_user_register_push_subscription_request: models::CreateUserRegisterPushSubscriptionRequest) -> Result<(), Error<CreateUserRegisterPushSubscriptionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_user_register_push_subscription_request = create_user_register_push_subscription_request;
+    let p_body_create_user_register_push_subscription_request = create_user_register_push_subscription_request;
 
     let uri_str = format!("{}/user/registerPushSubscription", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -379,7 +379,7 @@ pub async fn create_user_register_push_subscription(configuration: &configuratio
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_create_user_register_push_subscription_request);
+    req_builder = req_builder.json(&p_body_create_user_register_push_subscription_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -398,10 +398,10 @@ pub async fn create_user_register_push_subscription(configuration: &configuratio
 /// Updates and returns general settings for a specific user. Requires `MANAGE_USERS` permission if editing other users.
 pub async fn create_user_settings_main(configuration: &configuration::Configuration, user_id: f64, create_user_settings_main_request: models::CreateUserSettingsMainRequest) -> Result<models::GetUserSettingsMain2XxResponse, Error<CreateUserSettingsMainError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
-    let p_create_user_settings_main_request = create_user_settings_main_request;
+    let p_path_user_id = user_id;
+    let p_body_create_user_settings_main_request = create_user_settings_main_request;
 
-    let uri_str = format!("{}/user/{userId}/settings/main", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}/settings/main", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -415,7 +415,7 @@ pub async fn create_user_settings_main(configuration: &configuration::Configurat
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_create_user_settings_main_request);
+    req_builder = req_builder.json(&p_body_create_user_settings_main_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -445,10 +445,10 @@ pub async fn create_user_settings_main(configuration: &configuration::Configurat
 /// Updates and returns notification settings for a specific user. Requires `MANAGE_USERS` permission if editing other users.
 pub async fn create_user_settings_notifications(configuration: &configuration::Configuration, user_id: f64, user_settings_notifications: models::UserSettingsNotifications) -> Result<models::UserSettingsNotifications, Error<CreateUserSettingsNotificationsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
-    let p_user_settings_notifications = user_settings_notifications;
+    let p_path_user_id = user_id;
+    let p_body_user_settings_notifications = user_settings_notifications;
 
-    let uri_str = format!("{}/user/{userId}/settings/notifications", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}/settings/notifications", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -462,7 +462,7 @@ pub async fn create_user_settings_notifications(configuration: &configuration::C
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_user_settings_notifications);
+    req_builder = req_builder.json(&p_body_user_settings_notifications);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -492,10 +492,10 @@ pub async fn create_user_settings_notifications(configuration: &configuration::C
 /// Updates a user's password. Requires `MANAGE_USERS` permission if editing other users.
 pub async fn create_user_settings_password(configuration: &configuration::Configuration, user_id: f64, create_user_settings_password_request: models::CreateUserSettingsPasswordRequest) -> Result<(), Error<CreateUserSettingsPasswordError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
-    let p_create_user_settings_password_request = create_user_settings_password_request;
+    let p_path_user_id = user_id;
+    let p_body_create_user_settings_password_request = create_user_settings_password_request;
 
-    let uri_str = format!("{}/user/{userId}/settings/password", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}/settings/password", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -509,7 +509,7 @@ pub async fn create_user_settings_password(configuration: &configuration::Config
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_create_user_settings_password_request);
+    req_builder = req_builder.json(&p_body_create_user_settings_password_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -528,10 +528,10 @@ pub async fn create_user_settings_password(configuration: &configuration::Config
 /// Updates and returns permission settings for a specific user. Requires `MANAGE_USERS` permission if editing other users.
 pub async fn create_user_settings_permissions(configuration: &configuration::Configuration, user_id: f64, create_user_settings_permissions_request: models::CreateUserSettingsPermissionsRequest) -> Result<models::GetUserSettingsPermissions2XxResponse, Error<CreateUserSettingsPermissionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
-    let p_create_user_settings_permissions_request = create_user_settings_permissions_request;
+    let p_path_user_id = user_id;
+    let p_body_create_user_settings_permissions_request = create_user_settings_permissions_request;
 
-    let uri_str = format!("{}/user/{userId}/settings/permissions", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}/settings/permissions", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -545,7 +545,7 @@ pub async fn create_user_settings_permissions(configuration: &configuration::Con
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_create_user_settings_permissions_request);
+    req_builder = req_builder.json(&p_body_create_user_settings_permissions_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -575,9 +575,9 @@ pub async fn create_user_settings_permissions(configuration: &configuration::Con
 /// Deletes the user with the provided userId. Requires the `MANAGE_USERS` permission.
 pub async fn delete_user(configuration: &configuration::Configuration, user_id: f64) -> Result<models::User, Error<DeleteUserError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
+    let p_path_user_id = user_id;
 
-    let uri_str = format!("{}/user/{userId}", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -620,10 +620,10 @@ pub async fn delete_user(configuration: &configuration::Configuration, user_id: 
 /// Deletes the user push subscription with the provided key.
 pub async fn delete_user_push_subscription(configuration: &configuration::Configuration, user_id: f64, key: &str) -> Result<(), Error<DeleteUserPushSubscriptionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
-    let p_key = key;
+    let p_path_user_id = user_id;
+    let p_path_key = key;
 
-    let uri_str = format!("{}/user/{userId}/pushSubscription/{key}", configuration.base_path, userId=p_user_id, key=crate::apis::urlencode(p_key));
+    let uri_str = format!("{}/user/{userId}/pushSubscription/{key}", configuration.base_path, userId=p_path_user_id, key=crate::apis::urlencode(p_path_key));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -655,20 +655,20 @@ pub async fn delete_user_push_subscription(configuration: &configuration::Config
 /// Returns all users in a JSON object.
 pub async fn get_user(configuration: &configuration::Configuration, take: Option<f64>, skip: Option<f64>, sort: Option<&str>) -> Result<models::GetUser2XxResponse, Error<GetUserError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_take = take;
-    let p_skip = skip;
-    let p_sort = sort;
+    let p_query_take = take;
+    let p_query_skip = skip;
+    let p_query_sort = sort;
 
     let uri_str = format!("{}/user", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_take {
+    if let Some(ref param_value) = p_query_take {
         req_builder = req_builder.query(&[("take", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_skip {
+    if let Some(ref param_value) = p_query_skip {
         req_builder = req_builder.query(&[("skip", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_sort {
+    if let Some(ref param_value) = p_query_sort {
         req_builder = req_builder.query(&[("sort", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -711,9 +711,9 @@ pub async fn get_user(configuration: &configuration::Configuration, take: Option
 /// Retrieves user details in a JSON object. Requires the `MANAGE_USERS` permission. 
 pub async fn get_user_by_user_id(configuration: &configuration::Configuration, user_id: f64) -> Result<models::User, Error<GetUserByUserIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
+    let p_path_user_id = user_id;
 
-    let uri_str = format!("{}/user/{userId}", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -756,10 +756,10 @@ pub async fn get_user_by_user_id(configuration: &configuration::Configuration, u
 /// Returns web push notification settings for a user in a JSON object. 
 pub async fn get_user_push_subscription_by_key(configuration: &configuration::Configuration, user_id: f64, key: &str) -> Result<models::GetUserPushSubscriptions2XxResponse, Error<GetUserPushSubscriptionByKeyError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
-    let p_key = key;
+    let p_path_user_id = user_id;
+    let p_path_key = key;
 
-    let uri_str = format!("{}/user/{userId}/pushSubscription/{key}", configuration.base_path, userId=p_user_id, key=crate::apis::urlencode(p_key));
+    let uri_str = format!("{}/user/{userId}/pushSubscription/{key}", configuration.base_path, userId=p_path_user_id, key=crate::apis::urlencode(p_path_key));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -802,9 +802,9 @@ pub async fn get_user_push_subscription_by_key(configuration: &configuration::Co
 /// Returns all web push notification settings for a user in a JSON object. 
 pub async fn get_user_push_subscriptions(configuration: &configuration::Configuration, user_id: f64) -> Result<models::GetUserPushSubscriptions2XxResponse, Error<GetUserPushSubscriptionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
+    let p_path_user_id = user_id;
 
-    let uri_str = format!("{}/user/{userId}/pushSubscriptions", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}/pushSubscriptions", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -847,9 +847,9 @@ pub async fn get_user_push_subscriptions(configuration: &configuration::Configur
 /// Returns quota details for a user in a JSON object. Requires `MANAGE_USERS` permission if viewing other users. 
 pub async fn get_user_quota(configuration: &configuration::Configuration, user_id: f64) -> Result<models::GetUserQuota2XxResponse, Error<GetUserQuotaError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
+    let p_path_user_id = user_id;
 
-    let uri_str = format!("{}/user/{userId}/quota", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}/quota", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -892,17 +892,17 @@ pub async fn get_user_quota(configuration: &configuration::Configuration, user_i
 /// Retrieves a user's requests in a JSON object. 
 pub async fn get_user_requests(configuration: &configuration::Configuration, user_id: f64, take: Option<f64>, skip: Option<f64>) -> Result<models::GetUserRequests2XxResponse, Error<GetUserRequestsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
-    let p_take = take;
-    let p_skip = skip;
+    let p_path_user_id = user_id;
+    let p_query_take = take;
+    let p_query_skip = skip;
 
-    let uri_str = format!("{}/user/{userId}/requests", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}/requests", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_take {
+    if let Some(ref param_value) = p_query_take {
         req_builder = req_builder.query(&[("take", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_skip {
+    if let Some(ref param_value) = p_query_skip {
         req_builder = req_builder.query(&[("skip", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -945,9 +945,9 @@ pub async fn get_user_requests(configuration: &configuration::Configuration, use
 /// Returns general settings for a specific user. Requires `MANAGE_USERS` permission if viewing other users.
 pub async fn get_user_settings_main(configuration: &configuration::Configuration, user_id: f64) -> Result<models::GetUserSettingsMain2XxResponse, Error<GetUserSettingsMainError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
+    let p_path_user_id = user_id;
 
-    let uri_str = format!("{}/user/{userId}/settings/main", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}/settings/main", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -990,9 +990,9 @@ pub async fn get_user_settings_main(configuration: &configuration::Configuration
 /// Returns notification settings for a specific user. Requires `MANAGE_USERS` permission if viewing other users.
 pub async fn get_user_settings_notifications(configuration: &configuration::Configuration, user_id: f64) -> Result<models::UserSettingsNotifications, Error<GetUserSettingsNotificationsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
+    let p_path_user_id = user_id;
 
-    let uri_str = format!("{}/user/{userId}/settings/notifications", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}/settings/notifications", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1035,9 +1035,9 @@ pub async fn get_user_settings_notifications(configuration: &configuration::Conf
 /// Returns important data for the password page to function correctly. Requires `MANAGE_USERS` permission if viewing other users.
 pub async fn get_user_settings_password(configuration: &configuration::Configuration, user_id: f64) -> Result<models::GetUserSettingsPassword2XxResponse, Error<GetUserSettingsPasswordError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
+    let p_path_user_id = user_id;
 
-    let uri_str = format!("{}/user/{userId}/settings/password", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}/settings/password", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1080,9 +1080,9 @@ pub async fn get_user_settings_password(configuration: &configuration::Configura
 /// Returns permission settings for a specific user. Requires `MANAGE_USERS` permission if viewing other users.
 pub async fn get_user_settings_permissions(configuration: &configuration::Configuration, user_id: f64) -> Result<models::GetUserSettingsPermissions2XxResponse, Error<GetUserSettingsPermissionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
+    let p_path_user_id = user_id;
 
-    let uri_str = format!("{}/user/{userId}/settings/permissions", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}/settings/permissions", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1125,9 +1125,9 @@ pub async fn get_user_settings_permissions(configuration: &configuration::Config
 /// Returns play count, play duration, and recently watched media.  Requires the `ADMIN` permission to fetch results for other users. 
 pub async fn get_user_watch_data(configuration: &configuration::Configuration, user_id: f64) -> Result<models::GetUserWatchData2XxResponse, Error<GetUserWatchDataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
+    let p_path_user_id = user_id;
 
-    let uri_str = format!("{}/user/{userId}/watch_data", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}/watch_data", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1170,13 +1170,13 @@ pub async fn get_user_watch_data(configuration: &configuration::Configuration, u
 /// Retrieves a user's Plex Watchlist in a JSON object. 
 pub async fn get_user_watchlist(configuration: &configuration::Configuration, user_id: f64, page: Option<f64>) -> Result<models::GetUserWatchlist2XxResponse, Error<GetUserWatchlistError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
-    let p_page = page;
+    let p_path_user_id = user_id;
+    let p_query_page = page;
 
-    let uri_str = format!("{}/user/{userId}/watchlist", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}/watchlist", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1219,7 +1219,7 @@ pub async fn get_user_watchlist(configuration: &configuration::Configuration, us
 /// Update users with given IDs with provided values in request `body.settings`. You cannot update users' Plex tokens through this request.  Requires the `MANAGE_USERS` permission. 
 pub async fn put_user(configuration: &configuration::Configuration, put_user_request: models::PutUserRequest) -> Result<Vec<models::User>, Error<PutUserError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_put_user_request = put_user_request;
+    let p_body_put_user_request = put_user_request;
 
     let uri_str = format!("{}/user", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
@@ -1235,7 +1235,7 @@ pub async fn put_user(configuration: &configuration::Configuration, put_user_req
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_put_user_request);
+    req_builder = req_builder.json(&p_body_put_user_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1265,10 +1265,10 @@ pub async fn put_user(configuration: &configuration::Configuration, put_user_req
 /// Update a user with the provided values. You cannot update a user's Plex token through this request.  Requires the `MANAGE_USERS` permission. 
 pub async fn update_user(configuration: &configuration::Configuration, user_id: f64, user: models::User) -> Result<models::User, Error<UpdateUserError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_user_id = user_id;
-    let p_user = user;
+    let p_path_user_id = user_id;
+    let p_body_user = user;
 
-    let uri_str = format!("{}/user/{userId}", configuration.base_path, userId=p_user_id);
+    let uri_str = format!("{}/user/{userId}", configuration.base_path, userId=p_path_user_id);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1282,7 +1282,7 @@ pub async fn update_user(configuration: &configuration::Configuration, user_id: 
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_user);
+    req_builder = req_builder.json(&p_body_user);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

@@ -47,11 +47,11 @@ pub enum GetMediaWatchDataError {
 /// Updates a media item's status and returns the media in JSON format
 pub async fn create_media_by_status(configuration: &configuration::Configuration, media_id: &str, status: &str, create_media_by_status_request: Option<models::CreateMediaByStatusRequest>) -> Result<models::MediaInfo, Error<CreateMediaByStatusError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_media_id = media_id;
-    let p_status = status;
-    let p_create_media_by_status_request = create_media_by_status_request;
+    let p_path_media_id = media_id;
+    let p_path_status = status;
+    let p_body_create_media_by_status_request = create_media_by_status_request;
 
-    let uri_str = format!("{}/media/{mediaId}/{status}", configuration.base_path, mediaId=crate::apis::urlencode(p_media_id), status=crate::apis::urlencode(p_status));
+    let uri_str = format!("{}/media/{mediaId}/{status}", configuration.base_path, mediaId=crate::apis::urlencode(p_path_media_id), status=crate::apis::urlencode(p_path_status));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -65,7 +65,7 @@ pub async fn create_media_by_status(configuration: &configuration::Configuration
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_create_media_by_status_request);
+    req_builder = req_builder.json(&p_body_create_media_by_status_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -95,9 +95,9 @@ pub async fn create_media_by_status(configuration: &configuration::Configuration
 /// Removes a media item. The `MANAGE_REQUESTS` permission is required to perform this action.
 pub async fn delete_media(configuration: &configuration::Configuration, media_id: &str) -> Result<(), Error<DeleteMediaError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_media_id = media_id;
+    let p_path_media_id = media_id;
 
-    let uri_str = format!("{}/media/{mediaId}", configuration.base_path, mediaId=crate::apis::urlencode(p_media_id));
+    let uri_str = format!("{}/media/{mediaId}", configuration.base_path, mediaId=crate::apis::urlencode(p_path_media_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -129,24 +129,24 @@ pub async fn delete_media(configuration: &configuration::Configuration, media_id
 /// Returns all media (can be filtered and limited) in a JSON object.
 pub async fn get_media(configuration: &configuration::Configuration, take: Option<f64>, skip: Option<f64>, filter: Option<&str>, sort: Option<&str>) -> Result<models::GetMedia2XxResponse, Error<GetMediaError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_take = take;
-    let p_skip = skip;
-    let p_filter = filter;
-    let p_sort = sort;
+    let p_query_take = take;
+    let p_query_skip = skip;
+    let p_query_filter = filter;
+    let p_query_sort = sort;
 
     let uri_str = format!("{}/media", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_take {
+    if let Some(ref param_value) = p_query_take {
         req_builder = req_builder.query(&[("take", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_skip {
+    if let Some(ref param_value) = p_query_skip {
         req_builder = req_builder.query(&[("skip", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_filter {
+    if let Some(ref param_value) = p_query_filter {
         req_builder = req_builder.query(&[("filter", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_sort {
+    if let Some(ref param_value) = p_query_sort {
         req_builder = req_builder.query(&[("sort", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -189,9 +189,9 @@ pub async fn get_media(configuration: &configuration::Configuration, take: Optio
 /// Returns play count, play duration, and users who have watched the media.  Requires the `ADMIN` permission. 
 pub async fn get_media_watch_data(configuration: &configuration::Configuration, media_id: &str) -> Result<models::GetMediaWatchData2XxResponse, Error<GetMediaWatchDataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_media_id = media_id;
+    let p_path_media_id = media_id;
 
-    let uri_str = format!("{}/media/{mediaId}/watch_data", configuration.base_path, mediaId=crate::apis::urlencode(p_media_id));
+    let uri_str = format!("{}/media/{mediaId}/watch_data", configuration.base_path, mediaId=crate::apis::urlencode(p_path_media_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {

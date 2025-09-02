@@ -509,9 +509,9 @@ pub enum UpdateSonarrError {
 /// Flushes all data from the cache ID provided
 pub async fn create_cache_flush(configuration: &configuration::Configuration, cache_id: &str) -> Result<(), Error<CreateCacheFlushError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_cache_id = cache_id;
+    let p_path_cache_id = cache_id;
 
-    let uri_str = format!("{}/settings/cache/{cacheId}/flush", configuration.base_path, cacheId=crate::apis::urlencode(p_cache_id));
+    let uri_str = format!("{}/settings/cache/{cacheId}/flush", configuration.base_path, cacheId=crate::apis::urlencode(p_path_cache_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -543,7 +543,7 @@ pub async fn create_cache_flush(configuration: &configuration::Configuration, ca
 /// Batch update all sliders at once. Should also be used for creation. Will only update sliders provided and will not delete any sliders not present in the request. If a slider is missing a required field, it will be ignored. Requires the `ADMIN` permission. 
 pub async fn create_discover(configuration: &configuration::Configuration, discover_slider: Vec<models::DiscoverSlider>) -> Result<Vec<models::DiscoverSlider>, Error<CreateDiscoverError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_discover_slider = discover_slider;
+    let p_body_discover_slider = discover_slider;
 
     let uri_str = format!("{}/settings/discover", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -559,7 +559,7 @@ pub async fn create_discover(configuration: &configuration::Configuration, disco
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_discover_slider);
+    req_builder = req_builder.json(&p_body_discover_slider);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -589,7 +589,7 @@ pub async fn create_discover(configuration: &configuration::Configuration, disco
 /// Add a single slider and return the newly created slider. Requires the `ADMIN` permission. 
 pub async fn create_discover_add(configuration: &configuration::Configuration, create_discover_add_request: models::CreateDiscoverAddRequest) -> Result<models::DiscoverSlider, Error<CreateDiscoverAddError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_discover_add_request = create_discover_add_request;
+    let p_body_create_discover_add_request = create_discover_add_request;
 
     let uri_str = format!("{}/settings/discover/add", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -605,7 +605,7 @@ pub async fn create_discover_add(configuration: &configuration::Configuration, c
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_create_discover_add_request);
+    req_builder = req_builder.json(&p_body_create_discover_add_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -678,9 +678,9 @@ pub async fn create_initialize(configuration: &configuration::Configuration, ) -
 /// Cancels a specific job. Will return the new job status in JSON format.
 pub async fn create_jobs_cancel(configuration: &configuration::Configuration, job_id: &str) -> Result<models::Job, Error<CreateJobsCancelError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_job_id = job_id;
+    let p_path_job_id = job_id;
 
-    let uri_str = format!("{}/settings/jobs/{jobId}/cancel", configuration.base_path, jobId=crate::apis::urlencode(p_job_id));
+    let uri_str = format!("{}/settings/jobs/{jobId}/cancel", configuration.base_path, jobId=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -723,9 +723,9 @@ pub async fn create_jobs_cancel(configuration: &configuration::Configuration, jo
 /// Invokes a specific job to run. Will return the new job status in JSON format.
 pub async fn create_jobs_run(configuration: &configuration::Configuration, job_id: &str) -> Result<models::Job, Error<CreateJobsRunError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_job_id = job_id;
+    let p_path_job_id = job_id;
 
-    let uri_str = format!("{}/settings/jobs/{jobId}/run", configuration.base_path, jobId=crate::apis::urlencode(p_job_id));
+    let uri_str = format!("{}/settings/jobs/{jobId}/run", configuration.base_path, jobId=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -768,10 +768,10 @@ pub async fn create_jobs_run(configuration: &configuration::Configuration, job_i
 /// Re-registers the job with the schedule specified. Will return the job in JSON format.
 pub async fn create_jobs_schedule(configuration: &configuration::Configuration, job_id: &str, create_jobs_schedule_request: models::CreateJobsScheduleRequest) -> Result<models::Job, Error<CreateJobsScheduleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_job_id = job_id;
-    let p_create_jobs_schedule_request = create_jobs_schedule_request;
+    let p_path_job_id = job_id;
+    let p_body_create_jobs_schedule_request = create_jobs_schedule_request;
 
-    let uri_str = format!("{}/settings/jobs/{jobId}/schedule", configuration.base_path, jobId=crate::apis::urlencode(p_job_id));
+    let uri_str = format!("{}/settings/jobs/{jobId}/schedule", configuration.base_path, jobId=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -785,7 +785,7 @@ pub async fn create_jobs_schedule(configuration: &configuration::Configuration, 
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_create_jobs_schedule_request);
+    req_builder = req_builder.json(&p_body_create_jobs_schedule_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -815,7 +815,7 @@ pub async fn create_jobs_schedule(configuration: &configuration::Configuration, 
 /// Updates main settings with the provided values.
 pub async fn create_main(configuration: &configuration::Configuration, main_settings: models::MainSettings) -> Result<models::MainSettings, Error<CreateMainError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_main_settings = main_settings;
+    let p_body_main_settings = main_settings;
 
     let uri_str = format!("{}/settings/main", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -831,7 +831,7 @@ pub async fn create_main(configuration: &configuration::Configuration, main_sett
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_main_settings);
+    req_builder = req_builder.json(&p_body_main_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -904,7 +904,7 @@ pub async fn create_main_regenerate(configuration: &configuration::Configuration
 /// Updates Discord notification settings with the provided values.
 pub async fn create_notifications_discord(configuration: &configuration::Configuration, discord_settings: models::DiscordSettings) -> Result<models::DiscordSettings, Error<CreateNotificationsDiscordError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_discord_settings = discord_settings;
+    let p_body_discord_settings = discord_settings;
 
     let uri_str = format!("{}/settings/notifications/discord", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -920,7 +920,7 @@ pub async fn create_notifications_discord(configuration: &configuration::Configu
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_discord_settings);
+    req_builder = req_builder.json(&p_body_discord_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -950,7 +950,7 @@ pub async fn create_notifications_discord(configuration: &configuration::Configu
 /// Updates email notification settings with provided values
 pub async fn create_notifications_email(configuration: &configuration::Configuration, notification_email_settings: models::NotificationEmailSettings) -> Result<models::NotificationEmailSettings, Error<CreateNotificationsEmailError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_notification_email_settings = notification_email_settings;
+    let p_body_notification_email_settings = notification_email_settings;
 
     let uri_str = format!("{}/settings/notifications/email", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -966,7 +966,7 @@ pub async fn create_notifications_email(configuration: &configuration::Configura
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_notification_email_settings);
+    req_builder = req_builder.json(&p_body_notification_email_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -996,7 +996,7 @@ pub async fn create_notifications_email(configuration: &configuration::Configura
 /// Update Gotify notification settings with the provided values.
 pub async fn create_notifications_gotify(configuration: &configuration::Configuration, gotify_settings: models::GotifySettings) -> Result<models::GotifySettings, Error<CreateNotificationsGotifyError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_gotify_settings = gotify_settings;
+    let p_body_gotify_settings = gotify_settings;
 
     let uri_str = format!("{}/settings/notifications/gotify", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1012,7 +1012,7 @@ pub async fn create_notifications_gotify(configuration: &configuration::Configur
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_gotify_settings);
+    req_builder = req_builder.json(&p_body_gotify_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1042,7 +1042,7 @@ pub async fn create_notifications_gotify(configuration: &configuration::Configur
 /// Updates LunaSea notification settings with the provided values.
 pub async fn create_notifications_lunasea(configuration: &configuration::Configuration, luna_sea_settings: models::LunaSeaSettings) -> Result<models::LunaSeaSettings, Error<CreateNotificationsLunaseaError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_luna_sea_settings = luna_sea_settings;
+    let p_body_luna_sea_settings = luna_sea_settings;
 
     let uri_str = format!("{}/settings/notifications/lunasea", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1058,7 +1058,7 @@ pub async fn create_notifications_lunasea(configuration: &configuration::Configu
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_luna_sea_settings);
+    req_builder = req_builder.json(&p_body_luna_sea_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1088,7 +1088,7 @@ pub async fn create_notifications_lunasea(configuration: &configuration::Configu
 /// Update Pushbullet notification settings with the provided values.
 pub async fn create_notifications_pushbullet(configuration: &configuration::Configuration, pushbullet_settings: models::PushbulletSettings) -> Result<models::PushbulletSettings, Error<CreateNotificationsPushbulletError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_pushbullet_settings = pushbullet_settings;
+    let p_body_pushbullet_settings = pushbullet_settings;
 
     let uri_str = format!("{}/settings/notifications/pushbullet", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1104,7 +1104,7 @@ pub async fn create_notifications_pushbullet(configuration: &configuration::Conf
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_pushbullet_settings);
+    req_builder = req_builder.json(&p_body_pushbullet_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1134,7 +1134,7 @@ pub async fn create_notifications_pushbullet(configuration: &configuration::Conf
 /// Update Pushover notification settings with the provided values.
 pub async fn create_notifications_pushover(configuration: &configuration::Configuration, pushover_settings: models::PushoverSettings) -> Result<models::PushoverSettings, Error<CreateNotificationsPushoverError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_pushover_settings = pushover_settings;
+    let p_body_pushover_settings = pushover_settings;
 
     let uri_str = format!("{}/settings/notifications/pushover", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1150,7 +1150,7 @@ pub async fn create_notifications_pushover(configuration: &configuration::Config
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_pushover_settings);
+    req_builder = req_builder.json(&p_body_pushover_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1180,7 +1180,7 @@ pub async fn create_notifications_pushover(configuration: &configuration::Config
 /// Updates Slack notification settings with the provided values.
 pub async fn create_notifications_slack(configuration: &configuration::Configuration, slack_settings: models::SlackSettings) -> Result<models::SlackSettings, Error<CreateNotificationsSlackError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_slack_settings = slack_settings;
+    let p_body_slack_settings = slack_settings;
 
     let uri_str = format!("{}/settings/notifications/slack", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1196,7 +1196,7 @@ pub async fn create_notifications_slack(configuration: &configuration::Configura
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_slack_settings);
+    req_builder = req_builder.json(&p_body_slack_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1226,7 +1226,7 @@ pub async fn create_notifications_slack(configuration: &configuration::Configura
 /// Update Telegram notification settings with the provided values.
 pub async fn create_notifications_telegram(configuration: &configuration::Configuration, telegram_settings: models::TelegramSettings) -> Result<models::TelegramSettings, Error<CreateNotificationsTelegramError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_telegram_settings = telegram_settings;
+    let p_body_telegram_settings = telegram_settings;
 
     let uri_str = format!("{}/settings/notifications/telegram", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1242,7 +1242,7 @@ pub async fn create_notifications_telegram(configuration: &configuration::Config
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_telegram_settings);
+    req_builder = req_builder.json(&p_body_telegram_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1272,7 +1272,7 @@ pub async fn create_notifications_telegram(configuration: &configuration::Config
 /// Updates webhook notification settings with the provided values.
 pub async fn create_notifications_webhook(configuration: &configuration::Configuration, webhook_settings: models::WebhookSettings) -> Result<models::WebhookSettings, Error<CreateNotificationsWebhookError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_webhook_settings = webhook_settings;
+    let p_body_webhook_settings = webhook_settings;
 
     let uri_str = format!("{}/settings/notifications/webhook", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1288,7 +1288,7 @@ pub async fn create_notifications_webhook(configuration: &configuration::Configu
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_webhook_settings);
+    req_builder = req_builder.json(&p_body_webhook_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1318,7 +1318,7 @@ pub async fn create_notifications_webhook(configuration: &configuration::Configu
 /// Updates Web Push notification settings with the provided values.
 pub async fn create_notifications_webpush(configuration: &configuration::Configuration, web_push_settings: models::WebPushSettings) -> Result<models::WebPushSettings, Error<CreateNotificationsWebpushError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_web_push_settings = web_push_settings;
+    let p_body_web_push_settings = web_push_settings;
 
     let uri_str = format!("{}/settings/notifications/webpush", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1334,7 +1334,7 @@ pub async fn create_notifications_webpush(configuration: &configuration::Configu
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_web_push_settings);
+    req_builder = req_builder.json(&p_body_web_push_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1364,7 +1364,7 @@ pub async fn create_notifications_webpush(configuration: &configuration::Configu
 /// Updates Plex settings with the provided values.
 pub async fn create_plex(configuration: &configuration::Configuration, plex_settings: models::PlexSettings) -> Result<models::PlexSettings, Error<CreatePlexError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_plex_settings = plex_settings;
+    let p_body_plex_settings = plex_settings;
 
     let uri_str = format!("{}/settings/plex", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1380,7 +1380,7 @@ pub async fn create_plex(configuration: &configuration::Configuration, plex_sett
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_plex_settings);
+    req_builder = req_builder.json(&p_body_plex_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1410,7 +1410,7 @@ pub async fn create_plex(configuration: &configuration::Configuration, plex_sett
 /// Runs a full Plex library scan and returns the progress in a JSON array.
 pub async fn create_plex_sync(configuration: &configuration::Configuration, create_plex_sync_request: Option<models::CreatePlexSyncRequest>) -> Result<models::GetPlexSync2XxResponse, Error<CreatePlexSyncError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_plex_sync_request = create_plex_sync_request;
+    let p_body_create_plex_sync_request = create_plex_sync_request;
 
     let uri_str = format!("{}/settings/plex/sync", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1426,7 +1426,7 @@ pub async fn create_plex_sync(configuration: &configuration::Configuration, crea
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_create_plex_sync_request);
+    req_builder = req_builder.json(&p_body_create_plex_sync_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1456,7 +1456,7 @@ pub async fn create_plex_sync(configuration: &configuration::Configuration, crea
 /// Creates a new Radarr instance from the request body.
 pub async fn create_radarr(configuration: &configuration::Configuration, radarr_settings: models::RadarrSettings) -> Result<models::RadarrSettings, Error<CreateRadarrError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_radarr_settings = radarr_settings;
+    let p_body_radarr_settings = radarr_settings;
 
     let uri_str = format!("{}/settings/radarr", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1472,7 +1472,7 @@ pub async fn create_radarr(configuration: &configuration::Configuration, radarr_
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_radarr_settings);
+    req_builder = req_builder.json(&p_body_radarr_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1502,7 +1502,7 @@ pub async fn create_radarr(configuration: &configuration::Configuration, radarr_
 /// Creates a new Sonarr instance from the request body.
 pub async fn create_sonarr(configuration: &configuration::Configuration, sonarr_settings: models::SonarrSettings) -> Result<models::SonarrSettings, Error<CreateSonarrError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_sonarr_settings = sonarr_settings;
+    let p_body_sonarr_settings = sonarr_settings;
 
     let uri_str = format!("{}/settings/sonarr", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1518,7 +1518,7 @@ pub async fn create_sonarr(configuration: &configuration::Configuration, sonarr_
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_sonarr_settings);
+    req_builder = req_builder.json(&p_body_sonarr_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1548,7 +1548,7 @@ pub async fn create_sonarr(configuration: &configuration::Configuration, sonarr_
 /// Updates Tautulli settings with the provided values.
 pub async fn create_tautulli(configuration: &configuration::Configuration, tautulli_settings: models::TautulliSettings) -> Result<models::TautulliSettings, Error<CreateTautulliError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_tautulli_settings = tautulli_settings;
+    let p_body_tautulli_settings = tautulli_settings;
 
     let uri_str = format!("{}/settings/tautulli", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1564,7 +1564,7 @@ pub async fn create_tautulli(configuration: &configuration::Configuration, tautu
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_tautulli_settings);
+    req_builder = req_builder.json(&p_body_tautulli_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1594,9 +1594,9 @@ pub async fn create_tautulli(configuration: &configuration::Configuration, tautu
 /// Deletes the slider with the provided sliderId. Requires the `ADMIN` permission.
 pub async fn delete_discover(configuration: &configuration::Configuration, slider_id: f64) -> Result<models::DiscoverSlider, Error<DeleteDiscoverError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_slider_id = slider_id;
+    let p_path_slider_id = slider_id;
 
-    let uri_str = format!("{}/settings/discover/{sliderId}", configuration.base_path, sliderId=p_slider_id);
+    let uri_str = format!("{}/settings/discover/{sliderId}", configuration.base_path, sliderId=p_path_slider_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1639,9 +1639,9 @@ pub async fn delete_discover(configuration: &configuration::Configuration, slide
 /// Deletes an existing Radarr instance based on the radarrId parameter.
 pub async fn delete_radarr(configuration: &configuration::Configuration, radarr_id: i32) -> Result<models::RadarrSettings, Error<DeleteRadarrError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_radarr_id = radarr_id;
+    let p_path_radarr_id = radarr_id;
 
-    let uri_str = format!("{}/settings/radarr/{radarrId}", configuration.base_path, radarrId=p_radarr_id);
+    let uri_str = format!("{}/settings/radarr/{radarrId}", configuration.base_path, radarrId=p_path_radarr_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1684,9 +1684,9 @@ pub async fn delete_radarr(configuration: &configuration::Configuration, radarr_
 /// Deletes an existing Sonarr instance based on the sonarrId parameter.
 pub async fn delete_sonarr(configuration: &configuration::Configuration, sonarr_id: i32) -> Result<models::SonarrSettings, Error<DeleteSonarrError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_sonarr_id = sonarr_id;
+    let p_path_sonarr_id = sonarr_id;
 
-    let uri_str = format!("{}/settings/sonarr/{sonarrId}", configuration.base_path, sonarrId=p_sonarr_id);
+    let uri_str = format!("{}/settings/sonarr/{sonarrId}", configuration.base_path, sonarrId=p_path_sonarr_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2570,24 +2570,24 @@ pub async fn list_jobs(configuration: &configuration::Configuration, ) -> Result
 /// Returns list of all log items and details
 pub async fn list_logs(configuration: &configuration::Configuration, take: Option<f64>, skip: Option<f64>, filter: Option<&str>, search: Option<&str>) -> Result<Vec<models::ListLogs2XxResponseInner>, Error<ListLogsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_take = take;
-    let p_skip = skip;
-    let p_filter = filter;
-    let p_search = search;
+    let p_query_take = take;
+    let p_query_skip = skip;
+    let p_query_filter = filter;
+    let p_query_search = search;
 
     let uri_str = format!("{}/settings/logs", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_take {
+    if let Some(ref param_value) = p_query_take {
         req_builder = req_builder.query(&[("take", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_skip {
+    if let Some(ref param_value) = p_query_skip {
         req_builder = req_builder.query(&[("skip", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_filter {
+    if let Some(ref param_value) = p_query_filter {
         req_builder = req_builder.query(&[("filter", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_search {
+    if let Some(ref param_value) = p_query_search {
         req_builder = req_builder.query(&[("search", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2630,12 +2630,12 @@ pub async fn list_logs(configuration: &configuration::Configuration, take: Optio
 /// Returns valid Pushover sound options in a JSON array.
 pub async fn list_notifications_pushover_sounds(configuration: &configuration::Configuration, token: &str) -> Result<Vec<models::ListNotificationsPushoverSounds2XxResponseInner>, Error<ListNotificationsPushoverSoundsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_token = token;
+    let p_query_token = token;
 
     let uri_str = format!("{}/settings/notifications/pushover/sounds", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("token", &p_token.to_string())]);
+    req_builder = req_builder.query(&[("token", &p_query_token.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -2719,16 +2719,16 @@ pub async fn list_plex_devices_servers(configuration: &configuration::Configurat
 /// Returns a list of Plex libraries in a JSON array.
 pub async fn list_plex_library(configuration: &configuration::Configuration, sync: Option<&str>, enable: Option<&str>) -> Result<Vec<models::PlexLibrary>, Error<ListPlexLibraryError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_sync = sync;
-    let p_enable = enable;
+    let p_query_sync = sync;
+    let p_query_enable = enable;
 
     let uri_str = format!("{}/settings/plex/library", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_sync {
+    if let Some(ref param_value) = p_query_sync {
         req_builder = req_builder.query(&[("sync", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_enable {
+    if let Some(ref param_value) = p_query_enable {
         req_builder = req_builder.query(&[("enable", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2857,9 +2857,9 @@ pub async fn list_radarr(configuration: &configuration::Configuration, ) -> Resu
 /// Returns a list of profiles available on the Radarr server instance in a JSON array.
 pub async fn list_radarr_profiles(configuration: &configuration::Configuration, radarr_id: i32) -> Result<Vec<models::ServiceProfile>, Error<ListRadarrProfilesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_radarr_id = radarr_id;
+    let p_path_radarr_id = radarr_id;
 
-    let uri_str = format!("{}/settings/radarr/{radarrId}/profiles", configuration.base_path, radarrId=p_radarr_id);
+    let uri_str = format!("{}/settings/radarr/{radarrId}/profiles", configuration.base_path, radarrId=p_path_radarr_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2945,7 +2945,7 @@ pub async fn list_sonarr(configuration: &configuration::Configuration, ) -> Resu
 /// Sends a test notification to the Discord agent.
 pub async fn test_notifications_discord(configuration: &configuration::Configuration, discord_settings: models::DiscordSettings) -> Result<(), Error<TestNotificationsDiscordError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_discord_settings = discord_settings;
+    let p_body_discord_settings = discord_settings;
 
     let uri_str = format!("{}/settings/notifications/discord/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -2961,7 +2961,7 @@ pub async fn test_notifications_discord(configuration: &configuration::Configura
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_discord_settings);
+    req_builder = req_builder.json(&p_body_discord_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -2980,7 +2980,7 @@ pub async fn test_notifications_discord(configuration: &configuration::Configura
 /// Sends a test notification to the email agent.
 pub async fn test_notifications_email(configuration: &configuration::Configuration, notification_email_settings: models::NotificationEmailSettings) -> Result<(), Error<TestNotificationsEmailError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_notification_email_settings = notification_email_settings;
+    let p_body_notification_email_settings = notification_email_settings;
 
     let uri_str = format!("{}/settings/notifications/email/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -2996,7 +2996,7 @@ pub async fn test_notifications_email(configuration: &configuration::Configurati
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_notification_email_settings);
+    req_builder = req_builder.json(&p_body_notification_email_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -3015,7 +3015,7 @@ pub async fn test_notifications_email(configuration: &configuration::Configurati
 /// Sends a test notification to the Gotify agent.
 pub async fn test_notifications_gotify(configuration: &configuration::Configuration, gotify_settings: models::GotifySettings) -> Result<(), Error<TestNotificationsGotifyError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_gotify_settings = gotify_settings;
+    let p_body_gotify_settings = gotify_settings;
 
     let uri_str = format!("{}/settings/notifications/gotify/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3031,7 +3031,7 @@ pub async fn test_notifications_gotify(configuration: &configuration::Configurat
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_gotify_settings);
+    req_builder = req_builder.json(&p_body_gotify_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -3050,7 +3050,7 @@ pub async fn test_notifications_gotify(configuration: &configuration::Configurat
 /// Sends a test notification to the LunaSea agent.
 pub async fn test_notifications_lunasea(configuration: &configuration::Configuration, luna_sea_settings: models::LunaSeaSettings) -> Result<(), Error<TestNotificationsLunaseaError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_luna_sea_settings = luna_sea_settings;
+    let p_body_luna_sea_settings = luna_sea_settings;
 
     let uri_str = format!("{}/settings/notifications/lunasea/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3066,7 +3066,7 @@ pub async fn test_notifications_lunasea(configuration: &configuration::Configura
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_luna_sea_settings);
+    req_builder = req_builder.json(&p_body_luna_sea_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -3085,7 +3085,7 @@ pub async fn test_notifications_lunasea(configuration: &configuration::Configura
 /// Sends a test notification to the Pushbullet agent.
 pub async fn test_notifications_pushbullet(configuration: &configuration::Configuration, pushbullet_settings: models::PushbulletSettings) -> Result<(), Error<TestNotificationsPushbulletError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_pushbullet_settings = pushbullet_settings;
+    let p_body_pushbullet_settings = pushbullet_settings;
 
     let uri_str = format!("{}/settings/notifications/pushbullet/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3101,7 +3101,7 @@ pub async fn test_notifications_pushbullet(configuration: &configuration::Config
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_pushbullet_settings);
+    req_builder = req_builder.json(&p_body_pushbullet_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -3120,7 +3120,7 @@ pub async fn test_notifications_pushbullet(configuration: &configuration::Config
 /// Sends a test notification to the Pushover agent.
 pub async fn test_notifications_pushover(configuration: &configuration::Configuration, pushover_settings: models::PushoverSettings) -> Result<(), Error<TestNotificationsPushoverError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_pushover_settings = pushover_settings;
+    let p_body_pushover_settings = pushover_settings;
 
     let uri_str = format!("{}/settings/notifications/pushover/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3136,7 +3136,7 @@ pub async fn test_notifications_pushover(configuration: &configuration::Configur
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_pushover_settings);
+    req_builder = req_builder.json(&p_body_pushover_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -3155,7 +3155,7 @@ pub async fn test_notifications_pushover(configuration: &configuration::Configur
 /// Sends a test notification to the Slack agent.
 pub async fn test_notifications_slack(configuration: &configuration::Configuration, slack_settings: models::SlackSettings) -> Result<(), Error<TestNotificationsSlackError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_slack_settings = slack_settings;
+    let p_body_slack_settings = slack_settings;
 
     let uri_str = format!("{}/settings/notifications/slack/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3171,7 +3171,7 @@ pub async fn test_notifications_slack(configuration: &configuration::Configurati
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_slack_settings);
+    req_builder = req_builder.json(&p_body_slack_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -3190,7 +3190,7 @@ pub async fn test_notifications_slack(configuration: &configuration::Configurati
 /// Sends a test notification to the Telegram agent.
 pub async fn test_notifications_telegram(configuration: &configuration::Configuration, telegram_settings: models::TelegramSettings) -> Result<(), Error<TestNotificationsTelegramError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_telegram_settings = telegram_settings;
+    let p_body_telegram_settings = telegram_settings;
 
     let uri_str = format!("{}/settings/notifications/telegram/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3206,7 +3206,7 @@ pub async fn test_notifications_telegram(configuration: &configuration::Configur
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_telegram_settings);
+    req_builder = req_builder.json(&p_body_telegram_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -3225,7 +3225,7 @@ pub async fn test_notifications_telegram(configuration: &configuration::Configur
 /// Sends a test notification to the webhook agent.
 pub async fn test_notifications_webhook(configuration: &configuration::Configuration, webhook_settings: models::WebhookSettings) -> Result<(), Error<TestNotificationsWebhookError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_webhook_settings = webhook_settings;
+    let p_body_webhook_settings = webhook_settings;
 
     let uri_str = format!("{}/settings/notifications/webhook/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3241,7 +3241,7 @@ pub async fn test_notifications_webhook(configuration: &configuration::Configura
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_webhook_settings);
+    req_builder = req_builder.json(&p_body_webhook_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -3260,7 +3260,7 @@ pub async fn test_notifications_webhook(configuration: &configuration::Configura
 /// Sends a test notification to the Web Push agent.
 pub async fn test_notifications_webpush(configuration: &configuration::Configuration, web_push_settings: models::WebPushSettings) -> Result<(), Error<TestNotificationsWebpushError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_web_push_settings = web_push_settings;
+    let p_body_web_push_settings = web_push_settings;
 
     let uri_str = format!("{}/settings/notifications/webpush/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3276,7 +3276,7 @@ pub async fn test_notifications_webpush(configuration: &configuration::Configura
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_web_push_settings);
+    req_builder = req_builder.json(&p_body_web_push_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -3295,7 +3295,7 @@ pub async fn test_notifications_webpush(configuration: &configuration::Configura
 /// Tests if the Radarr configuration is valid. Returns profiles and root folders on success.
 pub async fn test_radarr(configuration: &configuration::Configuration, test_radarr_request: models::TestRadarrRequest) -> Result<models::TestRadarr2XxResponse, Error<TestRadarrError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_test_radarr_request = test_radarr_request;
+    let p_body_test_radarr_request = test_radarr_request;
 
     let uri_str = format!("{}/settings/radarr/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3311,7 +3311,7 @@ pub async fn test_radarr(configuration: &configuration::Configuration, test_rada
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_test_radarr_request);
+    req_builder = req_builder.json(&p_body_test_radarr_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -3341,7 +3341,7 @@ pub async fn test_radarr(configuration: &configuration::Configuration, test_rada
 /// Tests if the Sonarr configuration is valid. Returns profiles and root folders on success.
 pub async fn test_sonarr(configuration: &configuration::Configuration, test_sonarr_request: models::TestSonarrRequest) -> Result<models::TestRadarr2XxResponse, Error<TestSonarrError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_test_sonarr_request = test_sonarr_request;
+    let p_body_test_sonarr_request = test_sonarr_request;
 
     let uri_str = format!("{}/settings/sonarr/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3357,7 +3357,7 @@ pub async fn test_sonarr(configuration: &configuration::Configuration, test_sona
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_test_sonarr_request);
+    req_builder = req_builder.json(&p_body_test_sonarr_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -3387,10 +3387,10 @@ pub async fn test_sonarr(configuration: &configuration::Configuration, test_sona
 /// Updates a single slider and return the newly updated slider. Requires the `ADMIN` permission. 
 pub async fn update_discover(configuration: &configuration::Configuration, slider_id: f64, update_discover_request: models::UpdateDiscoverRequest) -> Result<models::DiscoverSlider, Error<UpdateDiscoverError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_slider_id = slider_id;
-    let p_update_discover_request = update_discover_request;
+    let p_path_slider_id = slider_id;
+    let p_body_update_discover_request = update_discover_request;
 
-    let uri_str = format!("{}/settings/discover/{sliderId}", configuration.base_path, sliderId=p_slider_id);
+    let uri_str = format!("{}/settings/discover/{sliderId}", configuration.base_path, sliderId=p_path_slider_id);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -3404,7 +3404,7 @@ pub async fn update_discover(configuration: &configuration::Configuration, slide
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_update_discover_request);
+    req_builder = req_builder.json(&p_body_update_discover_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -3434,10 +3434,10 @@ pub async fn update_discover(configuration: &configuration::Configuration, slide
 /// Updates an existing Radarr instance with the provided values.
 pub async fn update_radarr(configuration: &configuration::Configuration, radarr_id: i32, radarr_settings: models::RadarrSettings) -> Result<models::RadarrSettings, Error<UpdateRadarrError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_radarr_id = radarr_id;
-    let p_radarr_settings = radarr_settings;
+    let p_path_radarr_id = radarr_id;
+    let p_body_radarr_settings = radarr_settings;
 
-    let uri_str = format!("{}/settings/radarr/{radarrId}", configuration.base_path, radarrId=p_radarr_id);
+    let uri_str = format!("{}/settings/radarr/{radarrId}", configuration.base_path, radarrId=p_path_radarr_id);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -3451,7 +3451,7 @@ pub async fn update_radarr(configuration: &configuration::Configuration, radarr_
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_radarr_settings);
+    req_builder = req_builder.json(&p_body_radarr_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -3481,10 +3481,10 @@ pub async fn update_radarr(configuration: &configuration::Configuration, radarr_
 /// Updates an existing Sonarr instance with the provided values.
 pub async fn update_sonarr(configuration: &configuration::Configuration, sonarr_id: i32, sonarr_settings: models::SonarrSettings) -> Result<models::SonarrSettings, Error<UpdateSonarrError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_sonarr_id = sonarr_id;
-    let p_sonarr_settings = sonarr_settings;
+    let p_path_sonarr_id = sonarr_id;
+    let p_body_sonarr_settings = sonarr_settings;
 
-    let uri_str = format!("{}/settings/sonarr/{sonarrId}", configuration.base_path, sonarrId=p_sonarr_id);
+    let uri_str = format!("{}/settings/sonarr/{sonarrId}", configuration.base_path, sonarrId=p_path_sonarr_id);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -3498,7 +3498,7 @@ pub async fn update_sonarr(configuration: &configuration::Configuration, sonarr_
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_sonarr_settings);
+    req_builder = req_builder.json(&p_body_sonarr_settings);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

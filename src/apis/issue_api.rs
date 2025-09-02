@@ -89,7 +89,7 @@ pub enum UpdateIssueCommentError {
 /// Creates a new issue 
 pub async fn create_issue(configuration: &configuration::Configuration, create_issue_request: models::CreateIssueRequest) -> Result<models::Issue, Error<CreateIssueError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_issue_request = create_issue_request;
+    let p_body_create_issue_request = create_issue_request;
 
     let uri_str = format!("{}/issue", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -105,7 +105,7 @@ pub async fn create_issue(configuration: &configuration::Configuration, create_i
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_create_issue_request);
+    req_builder = req_builder.json(&p_body_create_issue_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -135,10 +135,10 @@ pub async fn create_issue(configuration: &configuration::Configuration, create_i
 /// Updates an issue's status to approved or declined. Also returns the issue in a JSON object.  Requires the `MANAGE_ISSUES` permission or `ADMIN`. 
 pub async fn create_issue_by_status(configuration: &configuration::Configuration, issue_id: &str, status: &str) -> Result<models::Issue, Error<CreateIssueByStatusError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_issue_id = issue_id;
-    let p_status = status;
+    let p_path_issue_id = issue_id;
+    let p_path_status = status;
 
-    let uri_str = format!("{}/issue/{issueId}/{status}", configuration.base_path, issueId=crate::apis::urlencode(p_issue_id), status=crate::apis::urlencode(p_status));
+    let uri_str = format!("{}/issue/{issueId}/{status}", configuration.base_path, issueId=crate::apis::urlencode(p_path_issue_id), status=crate::apis::urlencode(p_path_status));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -181,10 +181,10 @@ pub async fn create_issue_by_status(configuration: &configuration::Configuration
 /// Creates a comment and returns associated issue in JSON format. 
 pub async fn create_issue_comment(configuration: &configuration::Configuration, issue_id: f64, create_issue_comment_request: models::CreateIssueCommentRequest) -> Result<models::Issue, Error<CreateIssueCommentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_issue_id = issue_id;
-    let p_create_issue_comment_request = create_issue_comment_request;
+    let p_path_issue_id = issue_id;
+    let p_body_create_issue_comment_request = create_issue_comment_request;
 
-    let uri_str = format!("{}/issue/{issueId}/comment", configuration.base_path, issueId=p_issue_id);
+    let uri_str = format!("{}/issue/{issueId}/comment", configuration.base_path, issueId=p_path_issue_id);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -198,7 +198,7 @@ pub async fn create_issue_comment(configuration: &configuration::Configuration, 
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_create_issue_comment_request);
+    req_builder = req_builder.json(&p_body_create_issue_comment_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -228,9 +228,9 @@ pub async fn create_issue_comment(configuration: &configuration::Configuration, 
 /// Removes an issue. If the user has the `MANAGE_ISSUES` permission, any issue can be removed. Otherwise, only a users own issues can be removed.
 pub async fn delete_issue(configuration: &configuration::Configuration, issue_id: &str) -> Result<(), Error<DeleteIssueError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_issue_id = issue_id;
+    let p_path_issue_id = issue_id;
 
-    let uri_str = format!("{}/issue/{issueId}", configuration.base_path, issueId=crate::apis::urlencode(p_issue_id));
+    let uri_str = format!("{}/issue/{issueId}", configuration.base_path, issueId=crate::apis::urlencode(p_path_issue_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -262,9 +262,9 @@ pub async fn delete_issue(configuration: &configuration::Configuration, issue_id
 /// Deletes an issue comment. Only users with `MANAGE_ISSUES` or the user who created the comment can perform this action. 
 pub async fn delete_issue_comment(configuration: &configuration::Configuration, comment_id: &str) -> Result<(), Error<DeleteIssueCommentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_comment_id = comment_id;
+    let p_path_comment_id = comment_id;
 
-    let uri_str = format!("{}/issueComment/{commentId}", configuration.base_path, commentId=crate::apis::urlencode(p_comment_id));
+    let uri_str = format!("{}/issueComment/{commentId}", configuration.base_path, commentId=crate::apis::urlencode(p_path_comment_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -296,28 +296,28 @@ pub async fn delete_issue_comment(configuration: &configuration::Configuration, 
 /// Returns a list of issues in JSON format. 
 pub async fn get_issue(configuration: &configuration::Configuration, take: Option<f64>, skip: Option<f64>, sort: Option<&str>, filter: Option<&str>, requested_by: Option<f64>) -> Result<models::GetIssue2XxResponse, Error<GetIssueError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_take = take;
-    let p_skip = skip;
-    let p_sort = sort;
-    let p_filter = filter;
-    let p_requested_by = requested_by;
+    let p_query_take = take;
+    let p_query_skip = skip;
+    let p_query_sort = sort;
+    let p_query_filter = filter;
+    let p_query_requested_by = requested_by;
 
     let uri_str = format!("{}/issue", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_take {
+    if let Some(ref param_value) = p_query_take {
         req_builder = req_builder.query(&[("take", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_skip {
+    if let Some(ref param_value) = p_query_skip {
         req_builder = req_builder.query(&[("skip", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_sort {
+    if let Some(ref param_value) = p_query_sort {
         req_builder = req_builder.query(&[("sort", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_filter {
+    if let Some(ref param_value) = p_query_filter {
         req_builder = req_builder.query(&[("filter", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_requested_by {
+    if let Some(ref param_value) = p_query_requested_by {
         req_builder = req_builder.query(&[("requestedBy", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -360,9 +360,9 @@ pub async fn get_issue(configuration: &configuration::Configuration, take: Optio
 /// Returns a single issue in JSON format. 
 pub async fn get_issue_by_issue_id(configuration: &configuration::Configuration, issue_id: f64) -> Result<models::Issue, Error<GetIssueByIssueIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_issue_id = issue_id;
+    let p_path_issue_id = issue_id;
 
-    let uri_str = format!("{}/issue/{issueId}", configuration.base_path, issueId=p_issue_id);
+    let uri_str = format!("{}/issue/{issueId}", configuration.base_path, issueId=p_path_issue_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -405,9 +405,9 @@ pub async fn get_issue_by_issue_id(configuration: &configuration::Configuration,
 /// Returns a single issue comment in JSON format. 
 pub async fn get_issue_comment_by_comment_id(configuration: &configuration::Configuration, comment_id: &str) -> Result<models::IssueComment, Error<GetIssueCommentByCommentIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_comment_id = comment_id;
+    let p_path_comment_id = comment_id;
 
-    let uri_str = format!("{}/issueComment/{commentId}", configuration.base_path, commentId=crate::apis::urlencode(p_comment_id));
+    let uri_str = format!("{}/issueComment/{commentId}", configuration.base_path, commentId=crate::apis::urlencode(p_path_comment_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -493,10 +493,10 @@ pub async fn get_issue_count(configuration: &configuration::Configuration, ) -> 
 /// Updates and returns a single issue comment in JSON format. 
 pub async fn update_issue_comment(configuration: &configuration::Configuration, comment_id: &str, update_issue_comment_request: models::UpdateIssueCommentRequest) -> Result<models::IssueComment, Error<UpdateIssueCommentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_comment_id = comment_id;
-    let p_update_issue_comment_request = update_issue_comment_request;
+    let p_path_comment_id = comment_id;
+    let p_body_update_issue_comment_request = update_issue_comment_request;
 
-    let uri_str = format!("{}/issueComment/{commentId}", configuration.base_path, commentId=crate::apis::urlencode(p_comment_id));
+    let uri_str = format!("{}/issueComment/{commentId}", configuration.base_path, commentId=crate::apis::urlencode(p_path_comment_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -510,7 +510,7 @@ pub async fn update_issue_comment(configuration: &configuration::Configuration, 
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_update_issue_comment_request);
+    req_builder = req_builder.json(&p_body_update_issue_comment_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

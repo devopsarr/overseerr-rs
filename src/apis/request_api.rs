@@ -75,7 +75,7 @@ pub enum UpdateRequestError {
 /// Creates a new request with the provided media ID and type. The `REQUEST` permission is required.  If the user has the `ADMIN` or `AUTO_APPROVE` permissions, their request will be auomatically approved. 
 pub async fn create_request(configuration: &configuration::Configuration, create_request_request: models::CreateRequestRequest) -> Result<models::MediaRequest, Error<CreateRequestError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_request_request = create_request_request;
+    let p_body_create_request_request = create_request_request;
 
     let uri_str = format!("{}/request", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -91,7 +91,7 @@ pub async fn create_request(configuration: &configuration::Configuration, create
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_create_request_request);
+    req_builder = req_builder.json(&p_body_create_request_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -121,10 +121,10 @@ pub async fn create_request(configuration: &configuration::Configuration, create
 /// Updates a request's status to approved or declined. Also returns the request in a JSON object.  Requires the `MANAGE_REQUESTS` permission or `ADMIN`. 
 pub async fn create_request_by_status(configuration: &configuration::Configuration, request_id: &str, status: &str) -> Result<models::MediaRequest, Error<CreateRequestByStatusError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_request_id = request_id;
-    let p_status = status;
+    let p_path_request_id = request_id;
+    let p_path_status = status;
 
-    let uri_str = format!("{}/request/{requestId}/{status}", configuration.base_path, requestId=crate::apis::urlencode(p_request_id), status=crate::apis::urlencode(p_status));
+    let uri_str = format!("{}/request/{requestId}/{status}", configuration.base_path, requestId=crate::apis::urlencode(p_path_request_id), status=crate::apis::urlencode(p_path_status));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -167,9 +167,9 @@ pub async fn create_request_by_status(configuration: &configuration::Configurati
 /// Retries a request by resending requests to Sonarr or Radarr.  Requires the `MANAGE_REQUESTS` permission or `ADMIN`. 
 pub async fn create_request_retry(configuration: &configuration::Configuration, request_id: &str) -> Result<models::MediaRequest, Error<CreateRequestRetryError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_request_id = request_id;
+    let p_path_request_id = request_id;
 
-    let uri_str = format!("{}/request/{requestId}/retry", configuration.base_path, requestId=crate::apis::urlencode(p_request_id));
+    let uri_str = format!("{}/request/{requestId}/retry", configuration.base_path, requestId=crate::apis::urlencode(p_path_request_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -212,9 +212,9 @@ pub async fn create_request_retry(configuration: &configuration::Configuration, 
 /// Removes a request. If the user has the `MANAGE_REQUESTS` permission, any request can be removed. Otherwise, only pending requests can be removed.
 pub async fn delete_request(configuration: &configuration::Configuration, request_id: &str) -> Result<(), Error<DeleteRequestError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_request_id = request_id;
+    let p_path_request_id = request_id;
 
-    let uri_str = format!("{}/request/{requestId}", configuration.base_path, requestId=crate::apis::urlencode(p_request_id));
+    let uri_str = format!("{}/request/{requestId}", configuration.base_path, requestId=crate::apis::urlencode(p_path_request_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -246,28 +246,28 @@ pub async fn delete_request(configuration: &configuration::Configuration, reques
 /// Returns all requests if the user has the `ADMIN` or `MANAGE_REQUESTS` permissions. Otherwise, only the logged-in user's requests are returned.  If the `requestedBy` parameter is specified, only requests from that particular user ID will be returned. 
 pub async fn get_request(configuration: &configuration::Configuration, take: Option<f64>, skip: Option<f64>, filter: Option<&str>, sort: Option<&str>, requested_by: Option<f64>) -> Result<models::GetUserRequests2XxResponse, Error<GetRequestError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_take = take;
-    let p_skip = skip;
-    let p_filter = filter;
-    let p_sort = sort;
-    let p_requested_by = requested_by;
+    let p_query_take = take;
+    let p_query_skip = skip;
+    let p_query_filter = filter;
+    let p_query_sort = sort;
+    let p_query_requested_by = requested_by;
 
     let uri_str = format!("{}/request", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_take {
+    if let Some(ref param_value) = p_query_take {
         req_builder = req_builder.query(&[("take", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_skip {
+    if let Some(ref param_value) = p_query_skip {
         req_builder = req_builder.query(&[("skip", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_filter {
+    if let Some(ref param_value) = p_query_filter {
         req_builder = req_builder.query(&[("filter", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_sort {
+    if let Some(ref param_value) = p_query_sort {
         req_builder = req_builder.query(&[("sort", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_requested_by {
+    if let Some(ref param_value) = p_query_requested_by {
         req_builder = req_builder.query(&[("requestedBy", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -310,9 +310,9 @@ pub async fn get_request(configuration: &configuration::Configuration, take: Opt
 /// Returns a specific MediaRequest in a JSON object.
 pub async fn get_request_by_request_id(configuration: &configuration::Configuration, request_id: &str) -> Result<models::MediaRequest, Error<GetRequestByRequestIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_request_id = request_id;
+    let p_path_request_id = request_id;
 
-    let uri_str = format!("{}/request/{requestId}", configuration.base_path, requestId=crate::apis::urlencode(p_request_id));
+    let uri_str = format!("{}/request/{requestId}", configuration.base_path, requestId=crate::apis::urlencode(p_path_request_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -398,10 +398,10 @@ pub async fn get_request_count(configuration: &configuration::Configuration, ) -
 /// Updates a specific media request and returns the request in a JSON object. Requires the `MANAGE_REQUESTS` permission.
 pub async fn update_request(configuration: &configuration::Configuration, request_id: &str, update_request_request: models::UpdateRequestRequest) -> Result<models::MediaRequest, Error<UpdateRequestError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_request_id = request_id;
-    let p_update_request_request = update_request_request;
+    let p_path_request_id = request_id;
+    let p_body_update_request_request = update_request_request;
 
-    let uri_str = format!("{}/request/{requestId}", configuration.base_path, requestId=crate::apis::urlencode(p_request_id));
+    let uri_str = format!("{}/request/{requestId}", configuration.base_path, requestId=crate::apis::urlencode(p_path_request_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -415,7 +415,7 @@ pub async fn update_request(configuration: &configuration::Configuration, reques
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_update_request_request);
+    req_builder = req_builder.json(&p_body_update_request_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

@@ -54,13 +54,13 @@ pub enum GetMovieSimilarError {
 /// Returns full movie details in a JSON object.
 pub async fn get_movie_by_movie_id(configuration: &configuration::Configuration, movie_id: f64, language: Option<&str>) -> Result<models::MovieDetails, Error<GetMovieByMovieIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_movie_id = movie_id;
-    let p_language = language;
+    let p_path_movie_id = movie_id;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/movie/{movieId}", configuration.base_path, movieId=p_movie_id);
+    let uri_str = format!("{}/movie/{movieId}", configuration.base_path, movieId=p_path_movie_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -103,9 +103,9 @@ pub async fn get_movie_by_movie_id(configuration: &configuration::Configuration,
 /// Returns ratings based on the provided movieId in a JSON object.
 pub async fn get_movie_ratings(configuration: &configuration::Configuration, movie_id: f64) -> Result<models::GetMovieRatings2XxResponse, Error<GetMovieRatingsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_movie_id = movie_id;
+    let p_path_movie_id = movie_id;
 
-    let uri_str = format!("{}/movie/{movieId}/ratings", configuration.base_path, movieId=p_movie_id);
+    let uri_str = format!("{}/movie/{movieId}/ratings", configuration.base_path, movieId=p_path_movie_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -148,9 +148,9 @@ pub async fn get_movie_ratings(configuration: &configuration::Configuration, mov
 /// Returns ratings from RottenTomatoes and IMDB based on the provided movieId in a JSON object.
 pub async fn get_movie_ratingscombined(configuration: &configuration::Configuration, movie_id: f64) -> Result<models::GetMovieRatingscombined2XxResponse, Error<GetMovieRatingscombinedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_movie_id = movie_id;
+    let p_path_movie_id = movie_id;
 
-    let uri_str = format!("{}/movie/{movieId}/ratingscombined", configuration.base_path, movieId=p_movie_id);
+    let uri_str = format!("{}/movie/{movieId}/ratingscombined", configuration.base_path, movieId=p_path_movie_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -193,17 +193,17 @@ pub async fn get_movie_ratingscombined(configuration: &configuration::Configurat
 /// Returns list of recommended movies based on provided movie ID in a JSON object.
 pub async fn get_movie_recommendations(configuration: &configuration::Configuration, movie_id: f64, page: Option<f64>, language: Option<&str>) -> Result<models::GetDiscoverMovies2XxResponse, Error<GetMovieRecommendationsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_movie_id = movie_id;
-    let p_page = page;
-    let p_language = language;
+    let p_path_movie_id = movie_id;
+    let p_query_page = page;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/movie/{movieId}/recommendations", configuration.base_path, movieId=p_movie_id);
+    let uri_str = format!("{}/movie/{movieId}/recommendations", configuration.base_path, movieId=p_path_movie_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -246,17 +246,17 @@ pub async fn get_movie_recommendations(configuration: &configuration::Configurat
 /// Returns list of similar movies based on the provided movieId in a JSON object.
 pub async fn get_movie_similar(configuration: &configuration::Configuration, movie_id: f64, page: Option<f64>, language: Option<&str>) -> Result<models::GetDiscoverMovies2XxResponse, Error<GetMovieSimilarError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_movie_id = movie_id;
-    let p_page = page;
-    let p_language = language;
+    let p_path_movie_id = movie_id;
+    let p_query_page = page;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/movie/{movieId}/similar", configuration.base_path, movieId=p_movie_id);
+    let uri_str = format!("{}/movie/{movieId}/similar", configuration.base_path, movieId=p_path_movie_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {

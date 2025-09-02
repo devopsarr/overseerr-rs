@@ -54,13 +54,13 @@ pub enum GetTvSimilarError {
 /// Returns full TV details in a JSON object.
 pub async fn get_tv_by_tv_id(configuration: &configuration::Configuration, tv_id: f64, language: Option<&str>) -> Result<models::TvDetails, Error<GetTvByTvIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_tv_id = tv_id;
-    let p_language = language;
+    let p_path_tv_id = tv_id;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/tv/{tvId}", configuration.base_path, tvId=p_tv_id);
+    let uri_str = format!("{}/tv/{tvId}", configuration.base_path, tvId=p_path_tv_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -103,9 +103,9 @@ pub async fn get_tv_by_tv_id(configuration: &configuration::Configuration, tv_id
 /// Returns ratings based on provided tvId in a JSON object.
 pub async fn get_tv_ratings(configuration: &configuration::Configuration, tv_id: f64) -> Result<models::GetTvRatings2XxResponse, Error<GetTvRatingsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_tv_id = tv_id;
+    let p_path_tv_id = tv_id;
 
-    let uri_str = format!("{}/tv/{tvId}/ratings", configuration.base_path, tvId=p_tv_id);
+    let uri_str = format!("{}/tv/{tvId}/ratings", configuration.base_path, tvId=p_path_tv_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -148,17 +148,17 @@ pub async fn get_tv_ratings(configuration: &configuration::Configuration, tv_id:
 /// Returns list of recommended TV series based on the provided tvId in a JSON object.
 pub async fn get_tv_recommendations(configuration: &configuration::Configuration, tv_id: f64, page: Option<f64>, language: Option<&str>) -> Result<models::GetDiscoverTv2XxResponse, Error<GetTvRecommendationsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_tv_id = tv_id;
-    let p_page = page;
-    let p_language = language;
+    let p_path_tv_id = tv_id;
+    let p_query_page = page;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/tv/{tvId}/recommendations", configuration.base_path, tvId=p_tv_id);
+    let uri_str = format!("{}/tv/{tvId}/recommendations", configuration.base_path, tvId=p_path_tv_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -201,14 +201,14 @@ pub async fn get_tv_recommendations(configuration: &configuration::Configuration
 /// Returns season details with a list of episodes in a JSON object.
 pub async fn get_tv_season_by_season_id(configuration: &configuration::Configuration, tv_id: f64, season_id: f64, language: Option<&str>) -> Result<models::Season, Error<GetTvSeasonBySeasonIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_tv_id = tv_id;
-    let p_season_id = season_id;
-    let p_language = language;
+    let p_path_tv_id = tv_id;
+    let p_path_season_id = season_id;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/tv/{tvId}/season/{seasonId}", configuration.base_path, tvId=p_tv_id, seasonId=p_season_id);
+    let uri_str = format!("{}/tv/{tvId}/season/{seasonId}", configuration.base_path, tvId=p_path_tv_id, seasonId=p_path_season_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -251,17 +251,17 @@ pub async fn get_tv_season_by_season_id(configuration: &configuration::Configura
 /// Returns list of similar TV series based on the provided tvId in a JSON object.
 pub async fn get_tv_similar(configuration: &configuration::Configuration, tv_id: f64, page: Option<f64>, language: Option<&str>) -> Result<models::GetDiscoverTv2XxResponse, Error<GetTvSimilarError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_tv_id = tv_id;
-    let p_page = page;
-    let p_language = language;
+    let p_path_tv_id = tv_id;
+    let p_query_page = page;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/tv/{tvId}/similar", configuration.base_path, tvId=p_tv_id);
+    let uri_str = format!("{}/tv/{tvId}/similar", configuration.base_path, tvId=p_path_tv_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
