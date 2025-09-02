@@ -14,13 +14,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateRequestRequestSeasons {
-    Array(Vec<f64>),
+    ArrayVecf64(Vec<f64>),
     String(String),
 }
 
 impl Default for CreateRequestRequestSeasons {
     fn default() -> Self {
-        Self::Array(Default::default())
+        Self::ArrayVecf64(Default::default())
     }
 }
 

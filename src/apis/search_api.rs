@@ -145,17 +145,17 @@ pub enum ListDiscoverGenresliderTvError {
 /// Returns list of movies based on the provided keyword ID a JSON object.
 pub async fn get_discover_keyword_movies(configuration: &configuration::Configuration, keyword_id: f64, page: Option<f64>, language: Option<&str>) -> Result<models::GetDiscoverMovies2XxResponse, Error<GetDiscoverKeywordMoviesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_keyword_id = keyword_id;
-    let p_page = page;
-    let p_language = language;
+    let p_path_keyword_id = keyword_id;
+    let p_query_page = page;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/discover/keyword/{keywordId}/movies", configuration.base_path, keywordId=p_keyword_id);
+    let uri_str = format!("{}/discover/keyword/{keywordId}/movies", configuration.base_path, keywordId=p_path_keyword_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -198,72 +198,72 @@ pub async fn get_discover_keyword_movies(configuration: &configuration::Configur
 /// Returns a list of movies in a JSON object.
 pub async fn get_discover_movies(configuration: &configuration::Configuration, page: Option<f64>, language: Option<&str>, genre: Option<&str>, studio: Option<f64>, keywords: Option<&str>, sort_by: Option<&str>, primary_release_date_gte: Option<&str>, primary_release_date_lte: Option<&str>, with_runtime_gte: Option<f64>, with_runtime_lte: Option<f64>, vote_average_gte: Option<f64>, vote_average_lte: Option<f64>, vote_count_gte: Option<f64>, vote_count_lte: Option<f64>, watch_region: Option<&str>, watch_providers: Option<&str>) -> Result<models::GetDiscoverMovies2XxResponse, Error<GetDiscoverMoviesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_page = page;
-    let p_language = language;
-    let p_genre = genre;
-    let p_studio = studio;
-    let p_keywords = keywords;
-    let p_sort_by = sort_by;
-    let p_primary_release_date_gte = primary_release_date_gte;
-    let p_primary_release_date_lte = primary_release_date_lte;
-    let p_with_runtime_gte = with_runtime_gte;
-    let p_with_runtime_lte = with_runtime_lte;
-    let p_vote_average_gte = vote_average_gte;
-    let p_vote_average_lte = vote_average_lte;
-    let p_vote_count_gte = vote_count_gte;
-    let p_vote_count_lte = vote_count_lte;
-    let p_watch_region = watch_region;
-    let p_watch_providers = watch_providers;
+    let p_query_page = page;
+    let p_query_language = language;
+    let p_query_genre = genre;
+    let p_query_studio = studio;
+    let p_query_keywords = keywords;
+    let p_query_sort_by = sort_by;
+    let p_query_primary_release_date_gte = primary_release_date_gte;
+    let p_query_primary_release_date_lte = primary_release_date_lte;
+    let p_query_with_runtime_gte = with_runtime_gte;
+    let p_query_with_runtime_lte = with_runtime_lte;
+    let p_query_vote_average_gte = vote_average_gte;
+    let p_query_vote_average_lte = vote_average_lte;
+    let p_query_vote_count_gte = vote_count_gte;
+    let p_query_vote_count_lte = vote_count_lte;
+    let p_query_watch_region = watch_region;
+    let p_query_watch_providers = watch_providers;
 
     let uri_str = format!("{}/discover/movies", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_genre {
+    if let Some(ref param_value) = p_query_genre {
         req_builder = req_builder.query(&[("genre", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_studio {
+    if let Some(ref param_value) = p_query_studio {
         req_builder = req_builder.query(&[("studio", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_keywords {
+    if let Some(ref param_value) = p_query_keywords {
         req_builder = req_builder.query(&[("keywords", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_sort_by {
+    if let Some(ref param_value) = p_query_sort_by {
         req_builder = req_builder.query(&[("sortBy", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_primary_release_date_gte {
+    if let Some(ref param_value) = p_query_primary_release_date_gte {
         req_builder = req_builder.query(&[("primaryReleaseDateGte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_primary_release_date_lte {
+    if let Some(ref param_value) = p_query_primary_release_date_lte {
         req_builder = req_builder.query(&[("primaryReleaseDateLte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_with_runtime_gte {
+    if let Some(ref param_value) = p_query_with_runtime_gte {
         req_builder = req_builder.query(&[("withRuntimeGte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_with_runtime_lte {
+    if let Some(ref param_value) = p_query_with_runtime_lte {
         req_builder = req_builder.query(&[("withRuntimeLte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_vote_average_gte {
+    if let Some(ref param_value) = p_query_vote_average_gte {
         req_builder = req_builder.query(&[("voteAverageGte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_vote_average_lte {
+    if let Some(ref param_value) = p_query_vote_average_lte {
         req_builder = req_builder.query(&[("voteAverageLte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_vote_count_gte {
+    if let Some(ref param_value) = p_query_vote_count_gte {
         req_builder = req_builder.query(&[("voteCountGte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_vote_count_lte {
+    if let Some(ref param_value) = p_query_vote_count_lte {
         req_builder = req_builder.query(&[("voteCountLte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_watch_region {
+    if let Some(ref param_value) = p_query_watch_region {
         req_builder = req_builder.query(&[("watchRegion", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_watch_providers {
+    if let Some(ref param_value) = p_query_watch_providers {
         req_builder = req_builder.query(&[("watchProviders", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -306,17 +306,17 @@ pub async fn get_discover_movies(configuration: &configuration::Configuration, p
 /// Returns a list of movies based on the provided genre ID in a JSON object.
 pub async fn get_discover_movies_genre_by_genre_id(configuration: &configuration::Configuration, genre_id: &str, page: Option<f64>, language: Option<&str>) -> Result<models::GetDiscoverMoviesGenreByGenreId2XxResponse, Error<GetDiscoverMoviesGenreByGenreIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_genre_id = genre_id;
-    let p_page = page;
-    let p_language = language;
+    let p_path_genre_id = genre_id;
+    let p_query_page = page;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/discover/movies/genre/{genreId}", configuration.base_path, genreId=crate::apis::urlencode(p_genre_id));
+    let uri_str = format!("{}/discover/movies/genre/{genreId}", configuration.base_path, genreId=crate::apis::urlencode(p_path_genre_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -359,17 +359,17 @@ pub async fn get_discover_movies_genre_by_genre_id(configuration: &configuration
 /// Returns a list of movies based on the provided ISO 639-1 language code in a JSON object.
 pub async fn get_discover_movies_language_by_language(configuration: &configuration::Configuration, language: &str, page: Option<f64>, language2: Option<&str>) -> Result<models::GetDiscoverMoviesLanguageByLanguage2XxResponse, Error<GetDiscoverMoviesLanguageByLanguageError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_language = language;
-    let p_page = page;
-    let p_language = language2;
+    let p_path_language = language;
+    let p_query_page = page;
+    let p_query_language = language2;
 
-    let uri_str = format!("{}/discover/movies/language/{language}", configuration.base_path, language=crate::apis::urlencode(p_language));
+    let uri_str = format!("{}/discover/movies/language/{language}", configuration.base_path, language=crate::apis::urlencode(p_path_language));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -412,17 +412,17 @@ pub async fn get_discover_movies_language_by_language(configuration: &configurat
 /// Returns a list of movies based on the provided studio ID in a JSON object.
 pub async fn get_discover_movies_studio_by_studio_id(configuration: &configuration::Configuration, studio_id: &str, page: Option<f64>, language: Option<&str>) -> Result<models::GetDiscoverMoviesStudioByStudioId2XxResponse, Error<GetDiscoverMoviesStudioByStudioIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_studio_id = studio_id;
-    let p_page = page;
-    let p_language = language;
+    let p_path_studio_id = studio_id;
+    let p_query_page = page;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/discover/movies/studio/{studioId}", configuration.base_path, studioId=crate::apis::urlencode(p_studio_id));
+    let uri_str = format!("{}/discover/movies/studio/{studioId}", configuration.base_path, studioId=crate::apis::urlencode(p_path_studio_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -465,16 +465,16 @@ pub async fn get_discover_movies_studio_by_studio_id(configuration: &configurati
 /// Returns a list of movies in a JSON object.
 pub async fn get_discover_movies_upcoming(configuration: &configuration::Configuration, page: Option<f64>, language: Option<&str>) -> Result<models::GetDiscoverMovies2XxResponse, Error<GetDiscoverMoviesUpcomingError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_page = page;
-    let p_language = language;
+    let p_query_page = page;
+    let p_query_language = language;
 
     let uri_str = format!("{}/discover/movies/upcoming", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -517,16 +517,16 @@ pub async fn get_discover_movies_upcoming(configuration: &configuration::Configu
 /// Returns a list of movies and TV shows in a JSON object.
 pub async fn get_discover_trending(configuration: &configuration::Configuration, page: Option<f64>, language: Option<&str>) -> Result<models::GetSearch2XxResponse, Error<GetDiscoverTrendingError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_page = page;
-    let p_language = language;
+    let p_query_page = page;
+    let p_query_language = language;
 
     let uri_str = format!("{}/discover/trending", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -569,72 +569,72 @@ pub async fn get_discover_trending(configuration: &configuration::Configuration,
 /// Returns a list of TV shows in a JSON object.
 pub async fn get_discover_tv(configuration: &configuration::Configuration, page: Option<f64>, language: Option<&str>, genre: Option<&str>, network: Option<f64>, keywords: Option<&str>, sort_by: Option<&str>, first_air_date_gte: Option<&str>, first_air_date_lte: Option<&str>, with_runtime_gte: Option<f64>, with_runtime_lte: Option<f64>, vote_average_gte: Option<f64>, vote_average_lte: Option<f64>, vote_count_gte: Option<f64>, vote_count_lte: Option<f64>, watch_region: Option<&str>, watch_providers: Option<&str>) -> Result<models::GetDiscoverTv2XxResponse, Error<GetDiscoverTvError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_page = page;
-    let p_language = language;
-    let p_genre = genre;
-    let p_network = network;
-    let p_keywords = keywords;
-    let p_sort_by = sort_by;
-    let p_first_air_date_gte = first_air_date_gte;
-    let p_first_air_date_lte = first_air_date_lte;
-    let p_with_runtime_gte = with_runtime_gte;
-    let p_with_runtime_lte = with_runtime_lte;
-    let p_vote_average_gte = vote_average_gte;
-    let p_vote_average_lte = vote_average_lte;
-    let p_vote_count_gte = vote_count_gte;
-    let p_vote_count_lte = vote_count_lte;
-    let p_watch_region = watch_region;
-    let p_watch_providers = watch_providers;
+    let p_query_page = page;
+    let p_query_language = language;
+    let p_query_genre = genre;
+    let p_query_network = network;
+    let p_query_keywords = keywords;
+    let p_query_sort_by = sort_by;
+    let p_query_first_air_date_gte = first_air_date_gte;
+    let p_query_first_air_date_lte = first_air_date_lte;
+    let p_query_with_runtime_gte = with_runtime_gte;
+    let p_query_with_runtime_lte = with_runtime_lte;
+    let p_query_vote_average_gte = vote_average_gte;
+    let p_query_vote_average_lte = vote_average_lte;
+    let p_query_vote_count_gte = vote_count_gte;
+    let p_query_vote_count_lte = vote_count_lte;
+    let p_query_watch_region = watch_region;
+    let p_query_watch_providers = watch_providers;
 
     let uri_str = format!("{}/discover/tv", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_genre {
+    if let Some(ref param_value) = p_query_genre {
         req_builder = req_builder.query(&[("genre", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_network {
+    if let Some(ref param_value) = p_query_network {
         req_builder = req_builder.query(&[("network", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_keywords {
+    if let Some(ref param_value) = p_query_keywords {
         req_builder = req_builder.query(&[("keywords", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_sort_by {
+    if let Some(ref param_value) = p_query_sort_by {
         req_builder = req_builder.query(&[("sortBy", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_first_air_date_gte {
+    if let Some(ref param_value) = p_query_first_air_date_gte {
         req_builder = req_builder.query(&[("firstAirDateGte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_first_air_date_lte {
+    if let Some(ref param_value) = p_query_first_air_date_lte {
         req_builder = req_builder.query(&[("firstAirDateLte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_with_runtime_gte {
+    if let Some(ref param_value) = p_query_with_runtime_gte {
         req_builder = req_builder.query(&[("withRuntimeGte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_with_runtime_lte {
+    if let Some(ref param_value) = p_query_with_runtime_lte {
         req_builder = req_builder.query(&[("withRuntimeLte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_vote_average_gte {
+    if let Some(ref param_value) = p_query_vote_average_gte {
         req_builder = req_builder.query(&[("voteAverageGte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_vote_average_lte {
+    if let Some(ref param_value) = p_query_vote_average_lte {
         req_builder = req_builder.query(&[("voteAverageLte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_vote_count_gte {
+    if let Some(ref param_value) = p_query_vote_count_gte {
         req_builder = req_builder.query(&[("voteCountGte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_vote_count_lte {
+    if let Some(ref param_value) = p_query_vote_count_lte {
         req_builder = req_builder.query(&[("voteCountLte", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_watch_region {
+    if let Some(ref param_value) = p_query_watch_region {
         req_builder = req_builder.query(&[("watchRegion", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_watch_providers {
+    if let Some(ref param_value) = p_query_watch_providers {
         req_builder = req_builder.query(&[("watchProviders", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -677,17 +677,17 @@ pub async fn get_discover_tv(configuration: &configuration::Configuration, page:
 /// Returns a list of TV shows based on the provided genre ID in a JSON object.
 pub async fn get_discover_tv_genre_by_genre_id(configuration: &configuration::Configuration, genre_id: &str, page: Option<f64>, language: Option<&str>) -> Result<models::GetDiscoverTvGenreByGenreId2XxResponse, Error<GetDiscoverTvGenreByGenreIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_genre_id = genre_id;
-    let p_page = page;
-    let p_language = language;
+    let p_path_genre_id = genre_id;
+    let p_query_page = page;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/discover/tv/genre/{genreId}", configuration.base_path, genreId=crate::apis::urlencode(p_genre_id));
+    let uri_str = format!("{}/discover/tv/genre/{genreId}", configuration.base_path, genreId=crate::apis::urlencode(p_path_genre_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -730,17 +730,17 @@ pub async fn get_discover_tv_genre_by_genre_id(configuration: &configuration::Co
 /// Returns a list of TV shows based on the provided ISO 639-1 language code in a JSON object.
 pub async fn get_discover_tv_language_by_language(configuration: &configuration::Configuration, language: &str, page: Option<f64>, language2: Option<&str>) -> Result<models::GetDiscoverTvLanguageByLanguage2XxResponse, Error<GetDiscoverTvLanguageByLanguageError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_language = language;
-    let p_page = page;
-    let p_language = language2;
+    let p_path_language = language;
+    let p_query_page = page;
+    let p_query_language = language2;
 
-    let uri_str = format!("{}/discover/tv/language/{language}", configuration.base_path, language=crate::apis::urlencode(p_language));
+    let uri_str = format!("{}/discover/tv/language/{language}", configuration.base_path, language=crate::apis::urlencode(p_path_language));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -783,17 +783,17 @@ pub async fn get_discover_tv_language_by_language(configuration: &configuration:
 /// Returns a list of TV shows based on the provided network ID in a JSON object.
 pub async fn get_discover_tv_network_by_network_id(configuration: &configuration::Configuration, network_id: &str, page: Option<f64>, language: Option<&str>) -> Result<models::GetDiscoverTvNetworkByNetworkId2XxResponse, Error<GetDiscoverTvNetworkByNetworkIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_network_id = network_id;
-    let p_page = page;
-    let p_language = language;
+    let p_path_network_id = network_id;
+    let p_query_page = page;
+    let p_query_language = language;
 
-    let uri_str = format!("{}/discover/tv/network/{networkId}", configuration.base_path, networkId=crate::apis::urlencode(p_network_id));
+    let uri_str = format!("{}/discover/tv/network/{networkId}", configuration.base_path, networkId=crate::apis::urlencode(p_path_network_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -836,16 +836,16 @@ pub async fn get_discover_tv_network_by_network_id(configuration: &configuration
 /// Returns a list of upcoming TV shows in a JSON object.
 pub async fn get_discover_tv_upcoming(configuration: &configuration::Configuration, page: Option<f64>, language: Option<&str>) -> Result<models::GetDiscoverTv2XxResponse, Error<GetDiscoverTvUpcomingError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_page = page;
-    let p_language = language;
+    let p_query_page = page;
+    let p_query_language = language;
 
     let uri_str = format!("{}/discover/tv/upcoming", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -887,12 +887,12 @@ pub async fn get_discover_tv_upcoming(configuration: &configuration::Configurati
 
 pub async fn get_discover_watchlist(configuration: &configuration::Configuration, page: Option<f64>) -> Result<models::GetUserWatchlist2XxResponse, Error<GetDiscoverWatchlistError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_page = page;
+    let p_query_page = page;
 
     let uri_str = format!("{}/discover/watchlist", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -935,18 +935,18 @@ pub async fn get_discover_watchlist(configuration: &configuration::Configuration
 /// Returns a list of movies, TV shows, or people a JSON object.
 pub async fn get_search(configuration: &configuration::Configuration, query: &str, page: Option<f64>, language: Option<&str>) -> Result<models::GetSearch2XxResponse, Error<GetSearchError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_query = query;
-    let p_page = page;
-    let p_language = language;
+    let p_query_query = query;
+    let p_query_page = page;
+    let p_query_language = language;
 
     let uri_str = format!("{}/search", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("query", &p_query.to_string())]);
-    if let Some(ref param_value) = p_page {
+    req_builder = req_builder.query(&[("query", &p_query_query.to_string())]);
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -989,14 +989,14 @@ pub async fn get_search(configuration: &configuration::Configuration, query: &st
 /// Returns a list of TMDB companies matching the search query. (Will not return origin country)
 pub async fn get_search_company(configuration: &configuration::Configuration, query: &str, page: Option<f64>) -> Result<models::GetSearchCompany2XxResponse, Error<GetSearchCompanyError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_query = query;
-    let p_page = page;
+    let p_query_query = query;
+    let p_query_page = page;
 
     let uri_str = format!("{}/search/company", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("query", &p_query.to_string())]);
-    if let Some(ref param_value) = p_page {
+    req_builder = req_builder.query(&[("query", &p_query_query.to_string())]);
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1039,14 +1039,14 @@ pub async fn get_search_company(configuration: &configuration::Configuration, qu
 /// Returns a list of TMDB keywords matching the search query
 pub async fn get_search_keyword(configuration: &configuration::Configuration, query: &str, page: Option<f64>) -> Result<models::GetSearchKeyword2XxResponse, Error<GetSearchKeywordError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_query = query;
-    let p_page = page;
+    let p_query_query = query;
+    let p_query_page = page;
 
     let uri_str = format!("{}/search/keyword", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("query", &p_query.to_string())]);
-    if let Some(ref param_value) = p_page {
+    req_builder = req_builder.query(&[("query", &p_query_query.to_string())]);
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1089,12 +1089,12 @@ pub async fn get_search_keyword(configuration: &configuration::Configuration, qu
 /// Returns a list of genres with backdrops attached
 pub async fn list_discover_genreslider_movie(configuration: &configuration::Configuration, language: Option<&str>) -> Result<Vec<models::ListDiscoverGenresliderMovie2XxResponseInner>, Error<ListDiscoverGenresliderMovieError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_language = language;
+    let p_query_language = language;
 
     let uri_str = format!("{}/discover/genreslider/movie", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1137,12 +1137,12 @@ pub async fn list_discover_genreslider_movie(configuration: &configuration::Conf
 /// Returns a list of genres with backdrops attached
 pub async fn list_discover_genreslider_tv(configuration: &configuration::Configuration, language: Option<&str>) -> Result<Vec<models::ListDiscoverGenresliderMovie2XxResponseInner>, Error<ListDiscoverGenresliderTvError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_language = language;
+    let p_query_language = language;
 
     let uri_str = format!("{}/discover/genreslider/tv", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {

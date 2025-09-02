@@ -47,9 +47,9 @@ pub enum ListWatchprovidersTvError {
 /// Returns a single keyword in JSON format. 
 pub async fn get_keyword_by_keyword_id(configuration: &configuration::Configuration, keyword_id: f64) -> Result<models::Keyword, Error<GetKeywordByKeywordIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_keyword_id = keyword_id;
+    let p_path_keyword_id = keyword_id;
 
-    let uri_str = format!("{}/keyword/{keywordId}", configuration.base_path, keywordId=p_keyword_id);
+    let uri_str = format!("{}/keyword/{keywordId}", configuration.base_path, keywordId=p_path_keyword_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -92,12 +92,12 @@ pub async fn get_keyword_by_keyword_id(configuration: &configuration::Configurat
 /// Returns a list of all available watch providers for movies. 
 pub async fn list_watchproviders_movies(configuration: &configuration::Configuration, watch_region: &str) -> Result<Vec<models::WatchProviderDetails>, Error<ListWatchprovidersMoviesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_watch_region = watch_region;
+    let p_query_watch_region = watch_region;
 
     let uri_str = format!("{}/watchproviders/movies", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("watchRegion", &p_watch_region.to_string())]);
+    req_builder = req_builder.query(&[("watchRegion", &p_query_watch_region.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -181,12 +181,12 @@ pub async fn list_watchproviders_regions(configuration: &configuration::Configur
 /// Returns a list of all available watch providers for series. 
 pub async fn list_watchproviders_tv(configuration: &configuration::Configuration, watch_region: &str) -> Result<Vec<models::WatchProviderDetails>, Error<ListWatchprovidersTvError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_watch_region = watch_region;
+    let p_query_watch_region = watch_region;
 
     let uri_str = format!("{}/watchproviders/tv", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("watchRegion", &p_watch_region.to_string())]);
+    req_builder = req_builder.query(&[("watchRegion", &p_query_watch_region.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

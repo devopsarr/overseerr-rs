@@ -68,9 +68,9 @@ pub enum ListRegionsError {
 /// Returns TV network details in a JSON object.
 pub async fn get_network_by_network_id(configuration: &configuration::Configuration, network_id: f64) -> Result<models::ProductionCompany, Error<GetNetworkByNetworkIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_network_id = network_id;
+    let p_path_network_id = network_id;
 
-    let uri_str = format!("{}/network/{networkId}", configuration.base_path, networkId=p_network_id);
+    let uri_str = format!("{}/network/{networkId}", configuration.base_path, networkId=p_path_network_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -113,9 +113,9 @@ pub async fn get_network_by_network_id(configuration: &configuration::Configurat
 /// Returns movie studio details in a JSON object.
 pub async fn get_studio_by_studio_id(configuration: &configuration::Configuration, studio_id: f64) -> Result<models::ProductionCompany, Error<GetStudioByStudioIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_studio_id = studio_id;
+    let p_path_studio_id = studio_id;
 
-    let uri_str = format!("{}/studio/{studioId}", configuration.base_path, studioId=p_studio_id);
+    let uri_str = format!("{}/studio/{studioId}", configuration.base_path, studioId=p_path_studio_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -193,12 +193,12 @@ pub async fn list_backdrops(configuration: &configuration::Configuration, ) -> R
 /// Returns a list of genres in a JSON array.
 pub async fn list_genres_movie(configuration: &configuration::Configuration, language: Option<&str>) -> Result<Vec<models::ListGenresMovie2XxResponseInner>, Error<ListGenresMovieError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_language = language;
+    let p_query_language = language;
 
     let uri_str = format!("{}/genres/movie", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -241,12 +241,12 @@ pub async fn list_genres_movie(configuration: &configuration::Configuration, lan
 /// Returns a list of genres in a JSON array.
 pub async fn list_genres_tv(configuration: &configuration::Configuration, language: Option<&str>) -> Result<Vec<models::ListGenresTv2XxResponseInner>, Error<ListGenresTvError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_language = language;
+    let p_query_language = language;
 
     let uri_str = format!("{}/genres/tv", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_language {
+    if let Some(ref param_value) = p_query_language {
         req_builder = req_builder.query(&[("language", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {

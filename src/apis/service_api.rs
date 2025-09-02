@@ -54,9 +54,9 @@ pub enum ListServiceSonarrLookupByTmdbIdError {
 /// Returns a Radarr server's quality profile and root folder details in a JSON object.
 pub async fn get_service_radarr_by_radarr_id(configuration: &configuration::Configuration, radarr_id: f64) -> Result<models::GetServiceRadarrByRadarrId2XxResponse, Error<GetServiceRadarrByRadarrIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_radarr_id = radarr_id;
+    let p_path_radarr_id = radarr_id;
 
-    let uri_str = format!("{}/service/radarr/{radarrId}", configuration.base_path, radarrId=p_radarr_id);
+    let uri_str = format!("{}/service/radarr/{radarrId}", configuration.base_path, radarrId=p_path_radarr_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -99,9 +99,9 @@ pub async fn get_service_radarr_by_radarr_id(configuration: &configuration::Conf
 /// Returns a Sonarr server's quality profile and root folder details in a JSON object.
 pub async fn get_service_sonarr_by_sonarr_id(configuration: &configuration::Configuration, sonarr_id: f64) -> Result<models::GetServiceSonarrBySonarrId2XxResponse, Error<GetServiceSonarrBySonarrIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_sonarr_id = sonarr_id;
+    let p_path_sonarr_id = sonarr_id;
 
-    let uri_str = format!("{}/service/sonarr/{sonarrId}", configuration.base_path, sonarrId=p_sonarr_id);
+    let uri_str = format!("{}/service/sonarr/{sonarrId}", configuration.base_path, sonarrId=p_path_sonarr_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -230,9 +230,9 @@ pub async fn list_service_sonarr(configuration: &configuration::Configuration, )
 /// Returns a list of series returned by searching for the name in Sonarr.
 pub async fn list_service_sonarr_lookup_by_tmdb_id(configuration: &configuration::Configuration, tmdb_id: f64) -> Result<Vec<models::SonarrSeries>, Error<ListServiceSonarrLookupByTmdbIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_tmdb_id = tmdb_id;
+    let p_path_tmdb_id = tmdb_id;
 
-    let uri_str = format!("{}/service/sonarr/lookup/{tmdbId}", configuration.base_path, tmdbId=p_tmdb_id);
+    let uri_str = format!("{}/service/sonarr/lookup/{tmdbId}", configuration.base_path, tmdbId=p_path_tmdb_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
