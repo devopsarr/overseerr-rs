@@ -144,10 +144,10 @@ pub async fn get_media(configuration: &configuration::Configuration, take: Optio
         req_builder = req_builder.query(&[("skip", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_filter {
-        req_builder = req_builder.query(&[("filter", &param_value.to_string())]);
+        req_builder = req_builder.query(&[("filter", &serde_json::to_string(param_value)?)]);
     }
     if let Some(ref param_value) = p_query_sort {
-        req_builder = req_builder.query(&[("sort", &param_value.to_string())]);
+        req_builder = req_builder.query(&[("sort", &serde_json::to_string(param_value)?)]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

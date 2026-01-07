@@ -262,10 +262,10 @@ pub async fn get_request(configuration: &configuration::Configuration, take: Opt
         req_builder = req_builder.query(&[("skip", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_filter {
-        req_builder = req_builder.query(&[("filter", &param_value.to_string())]);
+        req_builder = req_builder.query(&[("filter", &serde_json::to_string(param_value)?)]);
     }
     if let Some(ref param_value) = p_query_sort {
-        req_builder = req_builder.query(&[("sort", &param_value.to_string())]);
+        req_builder = req_builder.query(&[("sort", &serde_json::to_string(param_value)?)]);
     }
     if let Some(ref param_value) = p_query_requested_by {
         req_builder = req_builder.query(&[("requestedBy", &param_value.to_string())]);
