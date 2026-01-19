@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 **origin_country** | Option<**Vec<String>**> |  | [optional]
 **first_air_date** | Option<**String**> |  | [optional]
 **profile_path** | Option<**String**> |  | [optional]
-**known_for** | Option<[**Vec<models::PersonResultKnownForInner>**](PersonResult_knownFor_inner.md)> |  | [optional]
+**known_for** | Option<[**Vec<models::PersonResultKnownForInner>**](PersonResultKnownForInner.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

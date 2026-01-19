@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> |  | [optional]
-**r#type** | Option<**String**> |  | [optional]
-**interval** | Option<**String**> |  | [optional]
+**r#type** | Option<**Type**> |  (enum: process, command) | [optional]
+**interval** | Option<**Interval**> |  (enum: short, long, fixed) | [optional]
 **name** | Option<**String**> |  | [optional]
 **next_execution_time** | Option<**String**> |  | [optional]
 **running** | Option<**bool**> |  | [optional]

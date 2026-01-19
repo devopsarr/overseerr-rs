@@ -2585,7 +2585,7 @@ pub async fn list_logs(configuration: &configuration::Configuration, take: Optio
         req_builder = req_builder.query(&[("skip", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_filter {
-        req_builder = req_builder.query(&[("filter", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("filter", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_search {
         req_builder = req_builder.query(&[("search", &param_value.to_string())]);
