@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **created_at** | Option<**String**> |  | [optional][readonly]
 **updated_at** | Option<**String**> |  | [optional][readonly]
 **requested_by** | Option<[**models::User**](User.md)> |  | [optional]
-**modified_by** | Option<[**models::MediaRequestModifiedBy**](MediaRequest_modifiedBy.md)> |  | [optional]
+**modified_by** | Option<[**models::MediaRequestModifiedBy**](MediaRequestModifiedBy.md)> |  | [optional]
 **is4k** | Option<**bool**> |  | [optional]
 **server_id** | Option<**f64**> |  | [optional]
 **profile_id** | Option<**f64**> |  | [optional]

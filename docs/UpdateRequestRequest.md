@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**media_type** | **String** |  | 
+**media_type** | **MediaType** |  (enum: movie, tv) | 
 **seasons** | Option<**Vec<f64>**> |  | [optional]
 **is4k** | Option<**bool**> |  | [optional]
 **server_id** | Option<**f64**> |  | [optional]

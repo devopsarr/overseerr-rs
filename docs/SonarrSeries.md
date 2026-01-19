@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **overview** | Option<**String**> |  | [optional]
 **network** | Option<**String**> |  | [optional]
 **air_time** | Option<**String**> |  | [optional]
-**images** | Option<[**Vec<models::SonarrSeriesImagesInner>**](SonarrSeries_images_inner.md)> |  | [optional]
+**images** | Option<[**Vec<models::SonarrSeriesImagesInner>**](SonarrSeriesImagesInner.md)> |  | [optional]
 **remote_poster** | Option<**String**> |  | [optional]
-**seasons** | Option<[**Vec<models::SonarrSeriesSeasonsInner>**](SonarrSeries_seasons_inner.md)> |  | [optional]
+**seasons** | Option<[**Vec<models::SonarrSeriesSeasonsInner>**](SonarrSeriesSeasonsInner.md)> |  | [optional]
 **year** | Option<**f64**> |  | [optional]
 **path** | Option<**String**> |  | [optional]
 **profile_id** | Option<**f64**> |  | [optional]
@@ -35,11 +35,11 @@ Name | Type | Description | Notes
 **genres** | Option<**Vec<String>**> |  | [optional]
 **tags** | Option<**Vec<String>**> |  | [optional]
 **added** | Option<**String**> |  | [optional]
-**ratings** | Option<[**Vec<models::SonarrSeriesRatingsInner>**](SonarrSeries_ratings_inner.md)> |  | [optional]
+**ratings** | Option<[**Vec<models::SonarrSeriesRatingsInner>**](SonarrSeriesRatingsInner.md)> |  | [optional]
 **quality_profile_id** | Option<**f64**> |  | [optional]
 **id** | Option<**f64**> |  | [optional]
 **root_folder_path** | Option<**String**> |  | [optional]
-**add_options** | Option<[**Vec<models::SonarrSeriesAddOptionsInner>**](SonarrSeries_addOptions_inner.md)> |  | [optional]
+**add_options** | Option<[**Vec<models::SonarrSeriesAddOptionsInner>**](SonarrSeriesAddOptionsInner.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

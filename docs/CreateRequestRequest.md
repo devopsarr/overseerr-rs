@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**media_type** | **String** |  | 
+**media_type** | **MediaType** |  (enum: movie, tv) | 
 **media_id** | **f64** |  | 
 **tvdb_id** | Option<**f64**> |  | [optional]
-**seasons** | Option<[**models::CreateRequestRequestSeasons**](CreateRequest_request_seasons.md)> |  | [optional]
+**seasons** | Option<[**models::CreateRequestRequestSeasons**](CreateRequestRequestSeasons.md)> |  | [optional]
 **is4k** | Option<**bool**> |  | [optional]
 **server_id** | Option<**f64**> |  | [optional]
 **profile_id** | Option<**f64**> |  | [optional]
