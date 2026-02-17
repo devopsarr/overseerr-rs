@@ -14,10 +14,10 @@ Method | HTTP request | Description
 [**create_user_settings_password**](UsersApi.md#create_user_settings_password) | **POST** /user/{userId}/settings/password | Update password for a user
 [**create_user_settings_permissions**](UsersApi.md#create_user_settings_permissions) | **POST** /user/{userId}/settings/permissions | Update permission settings for a user
 [**delete_user**](UsersApi.md#delete_user) | **DELETE** /user/{userId} | Delete user by ID
-[**delete_user_push_subscription**](UsersApi.md#delete_user_push_subscription) | **DELETE** /user/{userId}/pushSubscription/{key} | Delete user push subscription by key
+[**delete_user_push_subscription**](UsersApi.md#delete_user_push_subscription) | **DELETE** /user/{userId}/pushSubscription/{endpoint} | Delete user push subscription by key
 [**get_user**](UsersApi.md#get_user) | **GET** /user | Get all users
 [**get_user_by_user_id**](UsersApi.md#get_user_by_user_id) | **GET** /user/{userId} | Get user by ID
-[**get_user_push_subscription_by_key**](UsersApi.md#get_user_push_subscription_by_key) | **GET** /user/{userId}/pushSubscription/{key} | Get web push notification settings for a user
+[**get_user_push_subscription_by_endpoint**](UsersApi.md#get_user_push_subscription_by_endpoint) | **GET** /user/{userId}/pushSubscription/{endpoint} | Get web push notification settings for a user
 [**get_user_push_subscriptions**](UsersApi.md#get_user_push_subscriptions) | **GET** /user/{userId}/pushSubscriptions | Get all web push notification settings for a user
 [**get_user_quota**](UsersApi.md#get_user_quota) | **GET** /user/{userId}/quota | Get quotas for a specific user
 [**get_user_requests**](UsersApi.md#get_user_requests) | **GET** /user/{userId}/requests | Get requests for a specific user
@@ -339,7 +339,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_user_push_subscription
 
-> delete_user_push_subscription(user_id, key)
+> delete_user_push_subscription(user_id, endpoint)
 Delete user push subscription by key
 
 Deletes the user push subscription with the provided key.
@@ -350,7 +350,7 @@ Deletes the user push subscription with the provided key.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **user_id** | **f64** |  | [required] |
-**key** | **String** |  | [required] |
+**endpoint** | **String** |  | [required] |
 
 ### Return type
 
@@ -430,9 +430,9 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## get_user_push_subscription_by_key
+## get_user_push_subscription_by_endpoint
 
-> models::GetUserPushSubscriptions2XxResponse get_user_push_subscription_by_key(user_id, key)
+> models::GetUserPushSubscriptions2XxResponse get_user_push_subscription_by_endpoint(user_id, endpoint)
 Get web push notification settings for a user
 
 Returns web push notification settings for a user in a JSON object. 
@@ -443,7 +443,7 @@ Returns web push notification settings for a user in a JSON object.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **user_id** | **f64** |  | [required] |
-**key** | **String** |  | [required] |
+**endpoint** | **String** |  | [required] |
 
 ### Return type
 
