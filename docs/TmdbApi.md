@@ -133,7 +133,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_genres_tv
 
-> Vec<models::ListGenresTv2XxResponseInner> list_genres_tv(language)
+> Vec<models::ListGenresMovie2XxResponseInner> list_genres_tv(language)
 Get list of official TMDB movie genres
 
 Returns a list of genres in a JSON array.
@@ -147,7 +147,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**Vec<models::ListGenresTv2XxResponseInner>**](ListGenresTv_2XX_response_inner.md)
+[**Vec<models::ListGenresMovie2XxResponseInner>**](ListGenresMovie_2XX_response_inner.md)
 
 ### Authorization
 

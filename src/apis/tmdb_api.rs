@@ -239,7 +239,7 @@ pub async fn list_genres_movie(configuration: &configuration::Configuration, lan
 }
 
 /// Returns a list of genres in a JSON array.
-pub async fn list_genres_tv(configuration: &configuration::Configuration, language: Option<&str>) -> Result<Vec<models::ListGenresTv2XxResponseInner>, Error<ListGenresTvError>> {
+pub async fn list_genres_tv(configuration: &configuration::Configuration, language: Option<&str>) -> Result<Vec<models::ListGenresMovie2XxResponseInner>, Error<ListGenresTvError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_language = language;
 
@@ -276,8 +276,8 @@ pub async fn list_genres_tv(configuration: &configuration::Configuration, langua
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;models::ListGenresTv2XxResponseInner&gt;`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;models::ListGenresTv2XxResponseInner&gt;`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;models::ListGenresMovie2XxResponseInner&gt;`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;models::ListGenresMovie2XxResponseInner&gt;`")))),
         }
     } else {
         let content = resp.text().await?;

@@ -587,9 +587,9 @@ pub async fn create_discover(configuration: &configuration::Configuration, disco
 }
 
 /// Add a single slider and return the newly created slider. Requires the `ADMIN` permission. 
-pub async fn create_discover_add(configuration: &configuration::Configuration, create_discover_add_request: models::CreateDiscoverAddRequest) -> Result<models::DiscoverSlider, Error<CreateDiscoverAddError>> {
+pub async fn create_discover_add(configuration: &configuration::Configuration, update_discover_request: models::UpdateDiscoverRequest) -> Result<models::DiscoverSlider, Error<CreateDiscoverAddError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_create_discover_add_request = create_discover_add_request;
+    let p_body_update_discover_request = update_discover_request;
 
     let uri_str = format!("{}/settings/discover/add", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -605,7 +605,7 @@ pub async fn create_discover_add(configuration: &configuration::Configuration, c
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_body_create_discover_add_request);
+    req_builder = req_builder.json(&p_body_update_discover_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -3339,9 +3339,9 @@ pub async fn test_radarr(configuration: &configuration::Configuration, test_rada
 }
 
 /// Tests if the Sonarr configuration is valid. Returns profiles and root folders on success.
-pub async fn test_sonarr(configuration: &configuration::Configuration, test_sonarr_request: models::TestSonarrRequest) -> Result<models::TestRadarr2XxResponse, Error<TestSonarrError>> {
+pub async fn test_sonarr(configuration: &configuration::Configuration, test_radarr_request: models::TestRadarrRequest) -> Result<models::TestRadarr2XxResponse, Error<TestSonarrError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_test_sonarr_request = test_sonarr_request;
+    let p_body_test_radarr_request = test_radarr_request;
 
     let uri_str = format!("{}/settings/sonarr/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3357,7 +3357,7 @@ pub async fn test_sonarr(configuration: &configuration::Configuration, test_sona
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_body_test_sonarr_request);
+    req_builder = req_builder.json(&p_body_test_radarr_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
